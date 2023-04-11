@@ -1,0 +1,44 @@
+<!-- CSC337 CHIU YEH CHEN
+    This file contains a html to add user and login.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Ostaa</title>
+    <link id="cssFile" rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+
+<body id="index_body">
+    <div id="index_content" >
+
+        <div>
+            <h1>User login</h1>
+            <label for="username">username</label>
+            <input type="text" id="username_login" name="username_login"><br>
+            <label for="password">password</label>
+            <input type="password" id="password_login" name="password_login"><br>
+            <input type="submit" value="login" id="use_login" onclick="userLogin()"><br>
+            <output id ="login_p">please enter your username and password</output>
+        </div>
+
+        <div>
+            <h1>Add User</h1>
+            <label for="username">username</label>
+            <input type="text" id="username" name="username"><br>
+            <label for="password">password</label>
+            <input type="password" id="password" name="password"><br>
+            <input type="submit" value="add" id="add_user" onclick="addUser()"><br>
+        </div>
+
+        
+
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+
+</html>

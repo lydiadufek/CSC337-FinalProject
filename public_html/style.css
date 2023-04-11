@@ -1,0 +1,64 @@
+/* 
+CSC 337 CHIU YEH CHEN
+this file contains the css needed for the index.html.
+*/
+
+*{
+    font-family: "Courier New", monospace;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 80%;
+    background-color: #f3b0b0;
+}
+
+#left_content{
+    position: fixed;
+    top: 20%;
+    left: 0;
+    right: 50%;
+    bottom: 0;
+    background-color: #9acc93;
+    
+}
+
+.button{
+    
+    margin: 30px;
+}
+
+#right_content{
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    right: 0;
+    bottom: 0;
+    background-color: #e9ba56;
+    overflow-y: scroll;
+}
+
+.product{
+    
+    border: solid;
+    border-color: rgb(226, 245, 54);
+}
+
+#post_content{
+    background-color: #9acc93;
+}
+
+#post_body{
+    background-color: #9acc93;
+}
+
+#index_body{
+    background-color: #9acc93;
+}
+
+#index_content{
+    text-align: center;
+}
