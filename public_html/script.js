@@ -1,6 +1,7 @@
 // CSC337 CHIU YEH CHEN
 // This file is a js file to be used in this project.
 // it contain a function that need to be called when the event happens.
+import WebFont from 'webfontloader';
 
 const URL = "http://localhost";
 
@@ -125,3 +126,12 @@ const parseCookie = str =>
 function getUsername() {
     return JSON.parse(parseCookie(document.cookie)['login'].slice(2,)).username;
 }
+
+//testing loading fonts 
+// useEffect(() => {
+//     WebFont.load({
+//       google: {
+//         families: ['Dongle', 'Abel']
+//       }
+//     });
+// }, []);

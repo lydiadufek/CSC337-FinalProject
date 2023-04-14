@@ -3,8 +3,8 @@ CSC 337 CHIU YEH CHEN
 this file contains the css needed for the index.html.
 */
 
-*{
-    font-family: "Courier New", monospace;
+.font-loader {
+    font-family: 'Abel';
 }
 
 #header {
@@ -48,17 +48,21 @@ this file contains the css needed for the index.html.
 }
 
 #post_content{
-    background-color: #9acc93;
+    background-color: #EDF2F4;
 }
 
 #post_body{
-    background-color: #9acc93;
+    background-color: #EDF2F4;
 }
 
+/* The Index body */
 #index_body{
-    background-color: #9acc93;
+    background-color: #EDF2F4;
 }
 
+/* Main content of Index page */
 #index_content{
     text-align: center;
+    font-family: 'Abel';
+    font-weight: bolder;
 }
