@@ -8,13 +8,21 @@
     <meta charset="utf-8" />
     <title>Ostaa</title>
     <link id="cssFile" rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- Font links: Abel, Dongle -->
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
+
 
 </head>
 
 <body id="index_body">
-    <div id="index_content" >
+    <div id="header">
 
-        <div>
+    </div>
+
+    <div id="index_content" >
+        <div id="logIn">
             <h1>User login</h1>
             <label for="username">username</label>
             <input type="text" id="username_login" name="username_login"><br>
@@ -24,7 +32,7 @@
             <output id ="login_p">please enter your username and password</output>
         </div>
 
-        <div>
+        <div id="createAccount">
             <h1>Add User</h1>
             <label for="username">username</label>
             <input type="text" id="username" name="username"><br>
@@ -32,14 +40,6 @@
             <input type="password" id="password" name="password"><br>
             <input type="submit" value="add" id="add_user" onclick="addUser()"><br>
         </div>
-
-        <div>
-            <P> Hello there</P>
-            <p> Hello again</p>
-        </div>
-        
-
-
     </div>
     <script src="script.js"></script>
 </body>
