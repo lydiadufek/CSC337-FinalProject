@@ -3,6 +3,9 @@ var cookie = require('cookie');
 const app = express()
 const port = 80;
 const SESSION_LENGTH = 600 * 1000;      
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 var User;
 var Job;
 var Message;
@@ -20,7 +23,7 @@ var UserSchema = new mongoose.Schema({
     username: String,
     email: String,
     hash: String,
-    salt: String,
+    // salt: String,
     accountType: String, // ('Job Seeker' or 'Recruiter')
     profile: {
         firstName: String,
@@ -202,14 +205,16 @@ async function startServer() {
 
         // res.write(JSON.stringify(User.find().exec()));
         // console.log(req.body.username);
-
-        var newUser = new User({
-            username: req.body.username,
-            password: req.body.password
+        var hashPW;
+        bcrypt.hash(req.body.password, saltRounds, function(err, hs) {
+            console.log("hashPW : "+ hs);
+            var newUser = new User({
+                username: req.body.username,
+                hash: hs
+            });
+            newUser.save();
+            res.end("save user susses");
         });
-        newUser.save();
-
-        res.end("save user susses");
 
     })
 
