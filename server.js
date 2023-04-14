@@ -185,16 +185,13 @@ async function startServer() {
         let u = req.params.username;
         let p = req.params.password;
 
-        User.find({ username: u, password: p }).exec().then((results) => {
-            if (results.length > 0) {
-                s = addSession(u);
-                res.cookie("login", { 'username': u, 's_id': s }, { maxAge: SESSION_LENGTH });
-                res.end(JSON.stringify({ 'status': 'match' }));
-                console.log("Success!");
-            }
-            else {
-                res.end(JSON.stringify({ 'status': 'not match' }));
-            }
+        User.findOne({ username: u}).exec().then((results) => {
+           console.log(results); // single object
+           bcrypt.compare(p, results.hash, function(err, result) {
+            console.log(result);
+            res.end(JSON.stringify({ 'status': result }));
+        });
+    
         }).catch((err) => {
             console.log(err);
             res.end("login failed");
