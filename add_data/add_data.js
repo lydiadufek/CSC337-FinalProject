@@ -1,5 +1,8 @@
 const fs = require('fs');
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const { profile } = require('console');
+const saltRounds = 10;
 
 // Load Mongoose models and connect to MongoDB
 // const User = require('./models/user'); // Replace with your User model
@@ -47,23 +50,46 @@ var UserSchema = new mongoose.Schema({
 
 });
 User = mongoose.model('User', UserSchema);
-mongoose.connect('mongodb+srv://337project:337FinalProject@jobdata.dqgctlf.mongodb.net/test'); // Replace with your MongoDB connection string
+// Replace with your MongoDB connection string
 
 // Read data from JSON file
 const rawData = fs.readFileSync('users.json'); // Replace with the path to your JSON file
 const usersData = JSON.parse(rawData);
 
 // Loop through users data and insert into MongoDB
-usersData.forEach(user => {
-  const newUser = new User(user);
-  newUser.save()
-    .then(savedUser => {
-      console.log(`User ${savedUser.username} saved to MongoDB`);
-    })
-    .catch(err => {
-      console.error(`Error saving user: ${err}`);
+mongoose.connect("mongodb://127.0.0.1/").then(() => {
+    console.log("connect");
+    usersData.forEach(user => {
+
+        bcrypt.hash(user.hash, saltRounds).then((hs) => {
+            user.hash = hs;
+            user.profile.education.forEach((edu) => {
+                edu.startDate = new Date(edu.startDate);
+                edu.endDate = new Date(edu.endDate);
+            });
+            user.profile.experience.forEach((edu) => {
+                edu.startDate = new Date(edu.startDate);
+                if (edu.endDate == "Present") {
+                    edu.endDate = new Date("0001-01-01");
+                } else {
+                    edu.endDate = new Date(edu.endDate);
+                }
+            });
+
+            user.profile.createdAt = new Date(user.profile.createdAt);
+            user.profile.updatedAt = new Date(user.profile.updatedAt);
+
+            // console.log(user.profile);
+
+            const newUser = new User(user);
+            newUser.save().then(savedUser => {
+                console.log(`User ${savedUser.username} saved to MongoDB`);
+            })
+                .catch(err => {
+                    console.error(`Error saving user: ${err}`);
+                });
+        });
     });
 });
-
 // Close MongoDB connection
-mongoose.connection.close();
+
