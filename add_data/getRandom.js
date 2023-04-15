@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker';
+const { faker } = require('@faker-js/faker');
 const skillsArray = [
     'Algorithms',
     'Analytical Skills',
@@ -180,4 +180,4 @@ function getRandomUser() {
     return obj;
 }
 
-// console.log(getRandomUser());
+console.log(getRandomUser());
