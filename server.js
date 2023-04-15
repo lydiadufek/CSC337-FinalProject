@@ -6,11 +6,6 @@ const SESSION_LENGTH = 600 * 1000;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-var User;
-var Job;
-var Message;
-var CompanyProfile;
-
 // Import the mongoose module
 const mongoose = require("mongoose");
 mongoose.set('strictQuery', false);
@@ -19,98 +14,10 @@ mongoose.set('strictQuery', false);
 const mongoDB = "mongodb://127.0.0.1/";
 
 
-var UserSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    hash: String,
-    // salt: String,
-    accountType: String, // ('Job Seeker' or 'Recruiter')
-    profile: {
-        firstName: String,
-        lastName: String,
-        profBackground: String,
-        Resume: String,
-        location: String,
-        about: String, // (Optional, a longer bio or summary of the user's   experience)
-        skills: [String],
-        education: [{
-            institution: String,
-            degree: String,
-            fieldOfStudy: String,
-            startDate: Date,
-            endDate: Date,
-        }],
-        experience: [{
-            title: String,
-            company: String,
-            startDate: Date,
-            endDate: Date,
-            location: String,
-            description: String, // (Optional, a brief summary of the user's responsibilities and achievements)
-        }],
-        links: {
-            website: String,
-            linkedin: String,
-            github: String,
-            portfolio: String,
-        },
-        createdAt: Date,
-        updatedAt: Date,
-    },
-    AppliedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }], // Store the Jobs the users have applied 	
-    PostedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }] //the jobs the recruiter has listed.
-    // { type: mongoose.Schema.Types.ObjectId, ref: 'Jobs' }
-
-});
-
-var JobSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    company: String,
-    location: String,
-    employmentType: String,  // ('Full-time', 'Part-time', 'Contract', etc.)
-    experienceLevel: String, // ('Entry-level', 'Mid-level', 'Senior-level', etc.)
-    educationLevel: String, // ('High School', 'Bachelor's Degree','Master's Degree', etc.)
-    salary: {
-        type: String,
-        amount: Number,
-        currency: String,
-    },
-    postedBy: {
-        RecruiterUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // (ID of the recruiter who posted the job listing)
-        username: String,
-    },
-    Applicants: [{
-        UserID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-        Review: String,
-        Rating: Number,
-        TimePosted: Date
-    }],
-    createdAt: Date,
-    updatedAt: Date,
-});
-
-var MessageSchema = new mongoose.Schema({
-    senderId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    receiverId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    jobId: { type: mongoose.Schema.Types.ObjectId, ref: 'Job' },
-    content: String,
-    createdAt: Date,
-    updatedAt: Date
-});
-
-var CompanyProfileSchema = new mongoose.Schema({
-    name: String,
-    description: String, // Description of the company
-    logoUrl: String, // URL of the company's logo image
-    websiteUrl: String, // URL of the company's website
-    industry: String, // Industry in which the company operates
-    headquarters: String, // Location of the company's headquarters
-    specialties: [String], // List of specialties or areas of expertise for the company
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // ID of the user who created the company profile
-    createdAt: Date,
-    updatedAt: Date,
-});
+var User = require('./module/UserSchema');
+var Job = require('./module/JobSchema');
+var Message = require('./module/MessageSchema');
+var CompanyProfile = require('./module/CompanyProfileSchema');
 
 let session = [];
 
@@ -224,12 +131,6 @@ async function startServer() {
 // start the server and connect to the database.
 async function main() {
     await mongoose.connect(mongoDB).then(console.log("finish"));
-
-    User = mongoose.model('User', UserSchema);
-    Job = mongoose.model('Job', JobSchema);
-    Message = mongoose.model('Message', MessageSchema);
-    CompanyProfile = mongoose.model('CompanyProfile', CompanyProfileSchema);
-
     startServer();
 }
 
