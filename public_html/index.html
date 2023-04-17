@@ -18,27 +18,42 @@
 
 <body id="index_body">
     <div id="header">
-
+        <h1>JobSite</h1>
+        <span><p>Contact Us</p></span>
+        <span><p>Services</p></span>
     </div>
 
-    <div id="index_content" >
-        <div id="logIn">
-            <h1>User login</h1>
-            <label for="username">username</label>
-            <input type="text" id="username_login" name="username_login"><br>
-            <label for="password">password</label>
-            <input type="password" id="password_login" name="password_login"><br>
-            <input type="submit" value="login" id="use_login" onclick="userLogin()"><br>
-            <output id ="login_p">please enter your username and password</output>
-        </div>
-
+    <div id="index_content">
         <div id="createAccount">
             <h1>Add User</h1>
-            <label for="username">username</label>
+            <div class="line"></div>
+            <label for="username">Username</label>
             <input type="text" id="username" name="username"><br>
-            <label for="password">password</label>
+            <label for="password">Password</label>
             <input type="password" id="password" name="password"><br>
-            <input type="submit" value="add" id="add_user" onclick="addUser()"><br>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"><br>
+
+            <menu>
+                Option 1
+                <input type="radio" id="opt1">
+                
+                Option 2
+                <input type="radio" id="opt2">
+            </menu>
+
+
+            <input type="submit" value="add" id="add_user" class="inputButton" onclick="addUser()"><br>
+        </div>
+
+        <div id="logIn">
+            <h1>User login</h1>
+            <label for="username">Username</label>
+            <input type="text" id="username_login" name="username_login"><br>
+            <label for="password">Password</label>
+            <input type="password" id="password_login" name="password_login"><br>
+            <input type="submit" value="login" id="use_login" class="inputButton" onclick="userLogin()"><br>
+            <output id ="login_p">Please enter your username and password.</output>
         </div>
     </div>
     <script src="script.js"></script>

@@ -9,16 +9,18 @@ this file contains the css needed for the index.html.
 
 /* Index page heder */
 #header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 87%;
     background-color: #3D405B;
+    color: #8D99AE;
     /* Website title and logo */
     /* Services */
     /* Contact us --> forum */
 }
+
 
 #left_content{
     position: fixed;
@@ -29,9 +31,9 @@ this file contains the css needed for the index.html.
     background-color: #9acc93;
 }
 
-.button{
+/* .button{
     margin: 30px;
-}
+} */
 
 #right_content{
     position: fixed;
@@ -56,29 +58,81 @@ this file contains the css needed for the index.html.
     background-color: #EDF2F4;
 }
 
-/* The Index body */
-/* #index_body{
+/* The Index body */ */
+#index_body{
     background-color: #EDF2F4;
-} */
+}
 
 /* Main content of Index page */
 #index_content{
     position: fixed;
-    text-align: center;
     font-family: 'Abel';
     font-weight: bolder;
-    bottom: 40%;
-    background-color: #e2eff4;
+    top: 13%;
+    left:0px;
+    right:0px;
+    bottom: 20%;
+    background-color: #EDF2F4;
 }
 
 #logIn {
-    top: 20%;
-    right: 20%;
-    position: fixed;
+    top: 10%;
+    /* padding: 60px; */
+    width:400px;
+    height: 300px;
+    float: right;
+    right:5%;
+    position: relative;
+    background-color: #d8e0e37a;
+    border: solid 1px #d8e0e3c0;
+    box-shadow: 10px 10px #F4F1DE;
 }
 
 #createAccount {
-    top: 20%;
-    left: 20%;
-    position: fixed;
+    top: 10%;
+    width:400px;
+    height: 300px;
+    margin-bottom:50px;
+    float: left;
+    left: 5%;
+    position: relative;
+    background-color: #d8e0e37a;
+    border: solid 1px #d8e0e3c0;
 }
+
+#index_content h1 {
+    display:flex;
+    text-align: center;
+    justify-content: center;
+}
+
+#index_content label {
+    display: inline-block; 
+    margin-top: 5px;
+    width: 100px; 
+    text-align: right;
+}
+
+.inputButton {
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 45%;
+}
+
+menu {
+    text-align: center;
+}
+
+.line {
+    display:flex;
+    height: 2px;
+    margin-bottom: 15px;
+    background: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 10px,
+      black 10px,
+      black 20px
+    );
+    /*10px transparent then 10px black -> repeat this!*/
+  }
