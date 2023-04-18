@@ -3,6 +3,10 @@ CSC 337 CHIU YEH CHEN
 this file contains the css needed for the index.html.
 */
 
+* {
+    box-sizing: border-box;
+}
+
 .font-loader {
     font-family: 'Abel';
 }
@@ -13,91 +17,48 @@ this file contains the css needed for the index.html.
     top: 0;
     left: 0;
     right: 0;
-    bottom: 87%;
     background-color: #3D405B;
     color: #8D99AE;
-    /* Website title and logo */
-    /* Services */
-    /* Contact us --> forum */
-}
 
-
-#left_content{
-    position: fixed;
-    top: 20%;
-    left: 0;
-    right: 50%;
-    bottom: 0;
-    background-color: #9acc93;
-}
-
-/* .button{
-    margin: 30px;
-} */
-
-#right_content{
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    right: 0;
-    bottom: 0;
-    background-color: #e9ba56;
-    overflow-y: scroll;
-}
-
-.product{
-    border: solid;
-    border-color: rgb(226, 245, 54);
-}
-
-#post_content{
-    background-color: #EDF2F4;
-}
-
-#post_body{
-    background-color: #EDF2F4;
-}
-
-/* The Index body */ */
-#index_body{
-    background-color: #EDF2F4;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height: 15vh;
 }
 
 /* Main content of Index page */
 #index_content{
-    position: fixed;
+    position: absolute;
     font-family: 'Abel';
     font-weight: bolder;
-    top: 13%;
-    left:0px;
-    right:0px;
-    bottom: 20%;
+    top: 11vh;
+    left:0;
+    right:0;
+    bottom:0;  
+    height:150%;
     background-color: #EDF2F4;
 }
 
 #logIn {
-    top: 10%;
-    /* padding: 60px; */
-    width:400px;
-    height: 300px;
+    width:80vh;
+    height:50vh;
     float: right;
     right:5%;
     position: relative;
     background-color: #d8e0e37a;
     border: solid 1px #d8e0e3c0;
-    box-shadow: 10px 10px #F4F1DE;
+    box-shadow: 10px 10px #d8e0e3d9;
 }
 
 #createAccount {
-    top: 10%;
-    width:400px;
-    height: 300px;
-    margin-bottom:50px;
+    width:80vh;
+    height:50vh;
     float: left;
     left: 5%;
     position: relative;
     background-color: #d8e0e37a;
     border: solid 1px #d8e0e3c0;
+    box-shadow: 10px 10px #d8e0e3d9;
 }
 
 #index_content h1 {
@@ -109,18 +70,25 @@ this file contains the css needed for the index.html.
 #index_content label {
     display: inline-block; 
     margin-top: 5px;
+    margin-left: 3vh;
     width: 100px; 
     text-align: right;
 }
 
 .inputButton {
-    text-align: center;
-    margin-top: 20px;
-    margin-left: 45%;
+    position: absolute;
+    bottom:   0;
+    right: 50%;
+    display: flex;
+    float:inline-end;
+    margin: 0 auto;
 }
 
-menu {
-    text-align: center;
+fieldset {
+    margin-top: 3vh;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .line {
@@ -130,9 +98,25 @@ menu {
     background: repeating-linear-gradient(
       to right,
       transparent,
-      transparent 10px,
+      transparent 5px,
       black 10px,
       black 20px
     );
-    /*10px transparent then 10px black -> repeat this!*/
-  }
+}
+
+#content {
+    text-align: center;
+    font-family: 'Abel';
+    font-weight: bolder;
+    position: absolute;
+    background-color: #8D99AE;
+    left:0;
+    right:0;
+    top:100vh;
+    height:100%;
+}
+
+#desc {
+    text-align: center;
+    color: #8D99AE;
+}

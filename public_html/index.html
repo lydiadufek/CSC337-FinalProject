@@ -12,8 +12,6 @@
     <!-- Font links: Abel, Dongle -->
     <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
-
-
 </head>
 
 <body id="index_body">
@@ -24,8 +22,14 @@
     </div>
 
     <div id="index_content">
+        <div id="desc">
+            <h2> Create an account and fulfill all your job searching needs.</h2>
+            <h2> Either youre applying for a job or posting your listing.</h2>
+            <h1>Grow with 'jobsite name'</h2>
+        </div>
+
         <div id="createAccount">
-            <h1>Add User</h1>
+            <h1>Create an account</h1>
             <div class="line"></div>
             <label for="username">Username</label>
             <input type="text" id="username" name="username"><br>
@@ -34,30 +38,34 @@
             <label for="email">Email</label>
             <input type="email" id="email" name="email"><br>
 
-            <menu>
-                Option 1
-                <input type="radio" id="opt1">
-                
-                Option 2
-                <input type="radio" id="opt2">
-            </menu>
+            <fieldset>
+                <legend>Are you looking for a job or are you a recruiter?</legend>
+                    <div>
+                        <label for="choice1" class="RadioButtons">Looking for a job</label>
+                        <span><input type="radio" id="choice1" name="jobSeeker" value="looking" required></span>
+                        <span><label for="choice1" class="RadioButtons">Recruiter</label>
+                        <input type="radio" id="choice2" name="jobRecruiter" value="recruiter" required></span>
+                    </div>
+            </fieldset>
 
-
-            <input type="submit" value="add" id="add_user" class="inputButton" onclick="addUser()"><br>
+            <input type="submit" value="Create an account now!" id="add_user" class="inputButton" onclick="addUser()"><br>
         </div>
 
         <div id="logIn">
-            <h1>User login</h1>
+            <h1>Login</h1>
+            <div class="line"></div>
             <label for="username">Username</label>
             <input type="text" id="username_login" name="username_login"><br>
             <label for="password">Password</label>
             <input type="password" id="password_login" name="password_login"><br>
-            <input type="submit" value="login" id="use_login" class="inputButton" onclick="userLogin()"><br>
+            <input type="submit" value="Login" id="use_login" class="inputButton" onclick="userLogin()"><br>
             <output id ="login_p">Please enter your username and password.</output>
         </div>
     </div>
+
+    <div id="content">
+        <p> random content</p>
+    </div>
     <script src="script.js"></script>
 </body>
-
-
 </html>
