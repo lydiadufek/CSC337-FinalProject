@@ -7,13 +7,17 @@ this file contains the css needed for the index.html.
     font-family: 'Abel';
 }
 
+/* Index page heder */
 #header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 80%;
-    background-color: #f3b0b0;
+    bottom: 87%;
+    background-color: #3D405B;
+    /* Website title and logo */
+    /* Services */
+    /* Contact us --> forum */
 }
 
 #left_content{
@@ -23,11 +27,9 @@ this file contains the css needed for the index.html.
     right: 50%;
     bottom: 0;
     background-color: #9acc93;
-    
 }
 
 .button{
-    
     margin: 30px;
 }
 
@@ -42,7 +44,6 @@ this file contains the css needed for the index.html.
 }
 
 .product{
-    
     border: solid;
     border-color: rgb(226, 245, 54);
 }
@@ -56,13 +57,28 @@ this file contains the css needed for the index.html.
 }
 
 /* The Index body */
-#index_body{
+/* #index_body{
     background-color: #EDF2F4;
-}
+} */
 
 /* Main content of Index page */
 #index_content{
+    position: fixed;
     text-align: center;
     font-family: 'Abel';
     font-weight: bolder;
+    bottom: 40%;
+    background-color: #e2eff4;
+}
+
+#logIn {
+    top: 20%;
+    right: 20%;
+    position: fixed;
+}
+
+#createAccount {
+    top: 20%;
+    left: 20%;
+    position: fixed;
 }
