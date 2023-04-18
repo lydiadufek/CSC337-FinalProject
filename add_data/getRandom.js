@@ -92,7 +92,7 @@ function getRandomUser() {
 
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
-    const username = faker.internet.userName();
+    const username = faker.internet.userName(firstName, lastName);
     const email = faker.internet.email();
     const hash = '1234';
     const accountType = faker.helpers.arrayElement(['Job Seeker', 'Recruiter']);
@@ -228,4 +228,4 @@ function getRandomJob(RecruiterUserId, userName) {
 
 
 // console.log(getRandomUser());
-// console.log(getRandomJob());
+// pconsole.log(getRandomJob());
