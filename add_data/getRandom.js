@@ -189,9 +189,9 @@ function getRandomJob(RecruiterUserId, userName) {
     const experienceLevel = faker.helpers.arrayElement(['Entry-level', 'Mid-level', 'Senior-level']);
     const educationLevel = faker.helpers.arrayElement(['High School', 'Bachelor\'s Degree', 'Master\'s Degree']);
     // salary
-    const type = faker.helpers.arrayElement(['Fixed', 'Hourly']);
+    const JobType = faker.helpers.arrayElement(['Fixed', 'Hourly']);
     var amount;
-    if (type == 'Fixed') {
+    if (JobType == 'Fixed') {
         amount = getRandomNumber(3, 30) * 10000;
     } else {
         amount = getRandomNumber(12, 50);
@@ -210,7 +210,7 @@ function getRandomJob(RecruiterUserId, userName) {
         experienceLevel,
         educationLevel,
         salary: {
-            type,
+            JobType,
             amount,
             currency,
         },
@@ -226,6 +226,8 @@ function getRandomJob(RecruiterUserId, userName) {
     return obj;
 }
 
-
+exports.getRandomUser = getRandomUser;
+exports.getRandomJob = getRandomJob;
+exports.getRandomNumber = getRandomNumber;
 // console.log(getRandomUser());
 // pconsole.log(getRandomJob());
