@@ -19,8 +19,6 @@ body{
     margin-left:6vw;
 }
 
-
-
 #info{
     color:white;
     display: flex;
@@ -30,10 +28,20 @@ body{
 
 
 #info div{
-    margin-right:5vw;
+    margin-right:4vw;
     font-size:20px;
     font-weight:600;
 }
+
+#jobpost{
+    display:flex;
+    align-items: center;
+}
+
+#jobpost i{
+    margin-right:4px;
+}
+
 
 #search{
     padding-left:10vw;
@@ -103,3 +111,4 @@ select{
     margin:auto;
 
 }
+
