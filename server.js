@@ -2,7 +2,7 @@ const express = require('express')
 var cookie = require('cookie');
 const app = express()
 const port = 80;
-const SESSION_LENGTH = 600 * 1000;      
+const SESSION_LENGTH = 600 * 1000;
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 mongoose.set('strictQuery', false);
 
 // Define the database URL to connect to.
-const mongoDB = "mongodb://127.0.0.1/";
+const mongoDB = "mongodb+srv://337project:337FinalProject@jobdata.dqgctlf.mongodb.net/test";
 
 
 var User = require('./module/UserSchema');
@@ -92,13 +92,13 @@ async function startServer() {
         let u = req.params.username;
         let p = req.params.password;
 
-        User.findOne({ username: u}).exec().then((results) => {
-           console.log(results); // single object
-           bcrypt.compare(p, results.hash, function(err, result) {
-            console.log(result);
-            res.end(JSON.stringify({ 'status': result }));
-        });
-    
+        User.findOne({ username: u }).exec().then((results) => {
+            console.log(results); // single object
+            bcrypt.compare(p, results.hash, function (err, result) {
+                console.log(result);
+                res.end(JSON.stringify({ 'status': result }));
+            });
+
         }).catch((err) => {
             console.log(err);
             res.end("login failed");
@@ -106,12 +106,9 @@ async function startServer() {
     })
 
     app.post('/add/user/', function (req, res) {
-
         // res.write(JSON.stringify(User.find().exec()));
         // console.log(req.body.username);
-        var hashPW;
-        bcrypt.hash(req.body.password, saltRounds, function(err, hs) {
-            console.log("hashPW : "+ hs);
+        bcrypt.hash(req.body.password, saltRounds, function (err, hs) {
             var newUser = new User({
                 username: req.body.username,
                 hash: hs
@@ -119,14 +116,101 @@ async function startServer() {
             newUser.save();
             res.end("save user susses");
         });
-
     })
+
+    app.post('/search/job/', function (req, res) {
+        and = JobFilter(req);
+        console.log(and);
+        Job.find({$and : and}).exec().then((results) => {
+            console.log(results);
+            res.end(JSON.stringify(results));
+        })
+    })
+
+
 
     app.listen(port, () =>
         console.log(`App listening at http://165.22.176.109:${port}`))
 
 }
 
+
+function JobFilter(req) {
+    and = [];
+    if (req.params.title != undefined) {
+        and.push({ title: new RegExp('\w*' + req.params.title + '\w*') });
+        and.push({ description: new RegExp('\w*' + req.params.title + '\w*') });
+    }
+    if (req.params.company != undefined) {
+        and.push({ company: new RegExp('\w*' + req.params.company + '\w*') });
+    }
+    if (req.params.location != undefined) {
+        and.push({ location: new RegExp('\w*' + req.params.location + '\w*') });
+    }
+    if (req.params.employmentType != undefined) {
+        and.push({ employmentType: req.params.employmentType });
+    }
+    if (req.params.employmentType != undefined) {
+        and.push({ employmentType: req.params.employmentType });
+    }
+    if (req.params.educationLevel != undefined) {
+        and.push({ educationLevel: req.params.educationLevel });
+    }
+    if (req.params.JobType != undefined) {
+        and.push({
+            salary: {
+                JobType: req.params.JobType
+            }
+        });
+    }
+    if (req.params.lowSalary != undefined && req.params.HighSalary != undefined) {
+        and.push({
+            salary: {
+                amount: { $in: [req.params.lowSalary, req.params.highSalary] }
+            }
+        });
+    } else if (req.params.lowSalary != undefined) {
+        and.push({
+            salary: {
+                amount: { $gte: req.params.lowSalary }
+            }
+        });
+    } else if (req.params.HighSalary != undefined) {
+        and.push({
+            salary: {
+                amount: { $lte: req.params.HighSalary }
+            }
+        });
+    }
+    if (req.params.currency != undefined) {
+        and.push({
+            salary: {
+                currency: req.params.currency
+            }
+        });
+    }
+    if (req.params.RecruiterUserId != undefined) {
+        and.push({
+            postedBy: {
+                RecruiterUserId: req.params.RecruiterUserId
+            }
+        });
+    }
+    if (req.params.RecruiterUserName != undefined) {
+        and.push({
+            postedBy: {
+                RecruiterUserName: req.params.RecruiterUserName
+            }
+        });
+    }
+    if (req.params.dateAfter != undefined) {
+        and.push({
+            createAt: { $gte: req.params.dateAfter }
+        })
+    }
+    return and;
+
+}
 
 // start the server and connect to the database.
 async function main() {

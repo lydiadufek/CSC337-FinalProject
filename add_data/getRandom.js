@@ -184,7 +184,7 @@ function getRandomJob(RecruiterUserId, RecruiterUserName) {
     const title = faker.name.jobTitle();
     const description = faker.lorem.paragraph();
     const company = faker.company.name();
-    const location = faker.address.city();
+    const location = faker.address.cityName();
     const employmentType = faker.helpers.arrayElement(['Full-time', 'Part-time', 'Contract']);
     const experienceLevel = faker.helpers.arrayElement(['Entry-level', 'Mid-level', 'Senior-level']);
     const educationLevel = faker.helpers.arrayElement(['High School', 'Bachelor\'s Degree', 'Master\'s Degree']);
