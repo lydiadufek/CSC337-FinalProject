@@ -1,7 +1,7 @@
 body{
     margin: 0;
     box-sizing: border-box; 
-    background-color:#d2dee3
+    background-color:#e2eef4;
 }
 
 #header{
@@ -10,6 +10,7 @@ body{
     align-items:center ;
     background-color: #3D405B;
     height: 15vh;
+    
 }
 
 #logo{
@@ -112,3 +113,26 @@ select{
 
 }
 
+#left-info{
+    width:24%;
+    float:left;
+    display: flex;
+    height:100vh;
+    flex-direction: column;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+}
+
+.tab{
+    display:flex ;
+    justify-content: center;
+    align-items:center ;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    margin-top: 55px;
+}
+
+.tab i{
+    margin-right:12px;
+}
