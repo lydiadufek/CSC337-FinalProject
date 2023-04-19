@@ -1,95 +1,71 @@
-const fs = require('fs');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const { profile } = require('console');
 const saltRounds = 10;
+var User = require('../module/UserSchema');
+var Job = require('../module/JobSchema');
+var getRandom = require('./getRandom');
+// Define the database URL to connect to.
+const mongoDB = "mongodb+srv://337project:337FinalProject@jobdata.dqgctlf.mongodb.net/test";
+const numberAdd = 5;
 
-// Load Mongoose models and connect to MongoDB
-// const User = require('./models/user'); // Replace with your User model
-var UserSchema = new mongoose.Schema({
-    username: String,
-    email: String,
-    hash: String,
-    // salt: String,
-    accountType: String, // ('Job Seeker' or 'Recruiter')
-    profile: {
-        firstName: String,
-        lastName: String,
-        profBackground: String,
-        Resume: String,
-        location: String,
-        about: String, // (Optional, a longer bio or summary of the user's   experience)
-        skills: [String],
-        education: [{
-            institution: String,
-            degree: String,
-            fieldOfStudy: String,
-            startDate: Date,
-            endDate: Date,
-        }],
-        experience: [{
-            title: String,
-            company: String,
-            startDate: Date,
-            endDate: Date,
-            location: String,
-            description: String, // (Optional, a brief summary of the user's responsibilities and achievements)
-        }],
-        links: {
-            website: String,
-            linkedin: String,
-            github: String,
-            portfolio: String,
-        },
-        createdAt: Date,
-        updatedAt: Date,
-    },
-    AppliedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }], // Store the Jobs the users have applied 	
-    PostedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Job' }] //the jobs the recruiter has listed.
-    // { type: mongoose.Schema.Types.ObjectId, ref: 'Jobs' }
+async function addUserAndJob() {
 
-});
-User = mongoose.model('User', UserSchema);
-// Replace with your MongoDB connection string
+    user_obj = getRandom.getRandomUser();
+    bcrypt.hash(user_obj.hash, saltRounds).then((hs) => {
+        user_obj.hash = hs;
+        let newUser = new User(user_obj);
 
-// Read data from JSON file
-const rawData = fs.readFileSync('users.json'); // Replace with the path to your JSON file
-const usersData = JSON.parse(rawData);
+        // check if the user is already.
+        User.findOne({ username: newUser.username }).then((user) => {
+            if (!user) {
+                // console.log(`User ${user.username} already exists`);
+                console.log(`newUser: ` + newUser.username);
+            
+            
+                newUser.save().then(savedUser => {
+                    console.log(`User ${savedUser._id} saved to MongoDB`);
+                    // console.log(savedUser.accountType == "Recruiter");
 
-// Loop through users data and insert into MongoDB
-mongoose.connect("mongodb://127.0.0.1/").then(() => {
-    console.log("connect");
-    usersData.forEach(user => {
+                    if (savedUser.accountType == "Recruiter") {
+                        for (let i = 0; i < getRandom.getRandomNumber(1, 5); i++) {
 
-        bcrypt.hash(user.hash, saltRounds).then((hs) => {
-            user.hash = hs;
-            user.profile.education.forEach((edu) => {
-                edu.startDate = new Date(edu.startDate);
-                edu.endDate = new Date(edu.endDate);
-            });
-            user.profile.experience.forEach((edu) => {
-                edu.startDate = new Date(edu.startDate);
-                if (edu.endDate == "Present") {
-                    edu.endDate = new Date("0001-01-01");
-                } else {
-                    edu.endDate = new Date(edu.endDate);
-                }
-            });
-
-            user.profile.createdAt = new Date(user.profile.createdAt);
-            user.profile.updatedAt = new Date(user.profile.updatedAt);
-
-            // console.log(user.profile);
-
-            const newUser = new User(user);
-            newUser.save().then(savedUser => {
-                console.log(`User ${savedUser.username} saved to MongoDB`);
-            })
-                .catch(err => {
+                            job_obj = getRandom.getRandomJob(savedUser._id, savedUser.username);
+                            var newJob = new Job(job_obj);
+                            console.log(typeof job_obj.salary);
+                            
+                            newJob.save().then((savedJob) => {
+                                console.log(`User ${savedUser._id} saved Job ${savedJob._id}`);
+                            }).catch(err => {
+                                console.error(`Error saving Job: ${err}`);
+                            });
+                        }
+                    }
+                }).catch(err => {
                     console.error(`Error saving user: ${err}`);
+                    return;
                 });
+            }
         });
-    });
-});
-// Close MongoDB connection
 
+    });
+}
+
+function addData() {
+    mongoose.connect(mongoDB).then(() => {
+        console.log("connect");
+        for (i = 0; i < numberAdd; i++) {
+            console.log("/////////////////////////////////");
+            console.log("i : " + i);
+            console.log("/////////////////////////////////");
+            setInterval(addUserAndJob, 1);
+            // addUserAndJob();
+        };
+    }).catch(err => {
+        console.error('Error connecting to database:', err.message);
+    }).finally(() => {
+            // mongoose.connection.close();
+        })
+
+}
+
+addData();

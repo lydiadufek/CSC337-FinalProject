@@ -92,7 +92,7 @@ function getRandomUser() {
 
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
-    const username = faker.internet.userName(firstName, lastName);
+    const username = faker.internet.userName();
     const email = faker.internet.email();
     const hash = '1234';
     const accountType = faker.helpers.arrayElement(['Job Seeker', 'Recruiter']);
@@ -180,7 +180,7 @@ function getRandomUser() {
     return obj;
 }
 
-function getRandomJob(RecruiterUserId, userName) {
+function getRandomJob(RecruiterUserId, RecruiterUserName) {
     const title = faker.name.jobTitle();
     const description = faker.lorem.paragraph();
     const company = faker.company.name();
@@ -216,7 +216,7 @@ function getRandomJob(RecruiterUserId, userName) {
         },
         postedBy: {
             RecruiterUserId,
-            userName,
+            RecruiterUserName,
         },
         Applicants: [],
         createdAt,
@@ -230,4 +230,4 @@ exports.getRandomUser = getRandomUser;
 exports.getRandomJob = getRandomJob;
 exports.getRandomNumber = getRandomNumber;
 // console.log(getRandomUser());
-// pconsole.log(getRandomJob());
+// console.log(getRandomJob("123", "name"));

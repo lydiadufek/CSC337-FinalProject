@@ -14,7 +14,7 @@ const JobSchema = mongoose.Schema({
     },
     postedBy: {
         RecruiterUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // (ID of the recruiter who posted the job listing)
-        username: String,
+        RecruiterUserName: String,
     },
     Applicants: [{
         UserID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
