@@ -20,7 +20,7 @@ function userLogin() {
             if (JSON.parse(text)['status'] == true) {
                 searchUsername(u);
             } else {
-                //document.getElementById("login_p").value = "wrong username/password!";
+                document.getElementById("login_p").value = "wrong username/password!";
             }
         })
         .catch((error) => {
@@ -46,35 +46,38 @@ function addUser() {
         }
     //add recruiter/seeker and email
 
-    let url =  URL + '/add/user/';
-    fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({
-            username: u,
-            password: p,
-            email: e,
-            accountType: userType,
-        }),
-        headers: {
-            'Content-type': 'application/json',
-        }
-    })
-        .then((response) => {
-            return response.text();
+    if(u == undefined || p == undefined || e == undefined || userType == undefined) {
+        document.getElementById("create_p").value = "Enter all required information";
+    } else {
+        let url =  URL + '/add/user/';
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify({
+                username: u,
+                password: p,
+                email: e,
+                accountType: userType,
+            }),
+            headers: {
+                'Content-type': 'application/json',
+            }
         })
-        .then((text) => {
-            console.log(text);
-            alert(text);
-        })
-        .catch((error) => {
-            console.log('THERE WAS A PROBLEM');
-            console.log(error);
-        });
+            .then((response) => {
+                return response.text();
+            })
+            .then((text) => {
+                console.log(text);
+                alert(text);
+            })
+            .catch((error) => {
+                console.log('THERE WAS A PROBLEM');
+                console.log(error);
+            });
+    }
 }
 
 //  using ajax to add a item to the database.
 function addItem() {
-
     var t = document.getElementById("title").value;
     var d = document.getElementById("description").value;
     var i = document.getElementById("image").value;
