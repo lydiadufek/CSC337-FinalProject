@@ -58,7 +58,7 @@ this file contains the css needed for the index.html.
 }
 
 /* Main content of Index page */
-#index_content{
+.index_content{
     position: absolute;
     font-family: 'Abel';
     font-weight: bolder;
