@@ -183,6 +183,45 @@ function addPosting() {
         });
 }
 
+function searchJob(){
+
+    var t = document.getElementById("title").value;
+    var d = document.getElementById("description").value;
+    var c = document.getElementById("company").value;
+    var l = document.getElementById("location").value;
+
+
+    let url =  URL + '/add/posting/';
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            title: t,
+            description: d,
+            company: c,
+            location: l,
+            employmentType: employment,
+            experienceLevel: experience,
+            educationLevel: education,
+        }),
+        headers: {
+            'Content-type': 'application/json',
+        }
+    })
+        .then((response) => {
+            return response.text();
+        })
+        .then((text) => {
+            console.log(text);
+            alert(text);
+        })
+        .catch((error) => {
+            console.log('THERE WAS A PROBLEM');
+            console.log(error);
+        });
+
+
+}
+
 
 // turn js cookie to readable string.
 // from internet.

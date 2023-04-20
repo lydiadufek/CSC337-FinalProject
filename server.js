@@ -95,7 +95,7 @@ async function startServer() {
         User.findOne({ username: u }).exec().then((results) => {
             console.log(results); // single object
             bcrypt.compare(p, results.hash, function (err, result) {
-                console.log(result);
+                console.log("result" + result);
                 res.end(JSON.stringify({ 'status': result }));
             });
 
