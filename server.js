@@ -92,13 +92,18 @@ async function startServer() {
         let u = req.params.username;
         let p = req.params.password;
 
-        User.findOne({ username: u }).exec().then((results) => {
-            console.log(results); // single object
-            bcrypt.compare(p, results.hash, function (err, result) {
-                console.log("result" + result);
-                res.end(JSON.stringify({ 'status': result }));
-            });
+        User.findOne({ username: u}).exec().then((results) => {
+            if(results == null){
+                res.end(JSON.stringify({ 'status': 'can not find user' }));
+                return;
+            } 
 
+           console.log("result" + results); // single object
+           bcrypt.compare(p, results.hash, function(err, result) {
+            console.log(result);
+            res.end(JSON.stringify({ 'status': result }));
+        });
+    
         }).catch((err) => {
             console.log(err);
             res.end("login failed");
@@ -111,7 +116,8 @@ async function startServer() {
         bcrypt.hash(req.body.password, saltRounds, function (err, hs) {
             var newUser = new User({
                 username: req.body.username,
-                hash: hs
+                hash: hs,
+                email : req.body.email
             });
             newUser.save();
             res.end("save user susses");
