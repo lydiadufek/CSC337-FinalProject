@@ -1,7 +1,6 @@
 // CSC337 CHIU YEH CHEN
 // This file is a js file to be used in this project.
 // it contain a function that need to be called when the event happens.
-import WebFont from 'webfontloader';
 
 const URL = "http://localhost";
 
@@ -26,6 +25,7 @@ function userLogin() {
             
             if (JSON.parse(text)['status'] == "match") {
                 console.log('href');
+                //if userType = recruiter or seeker
                 window.location.href = "/home.html";
             } else {
                 document.getElementById("login_p").value = "wrong username/password!";
@@ -44,6 +44,17 @@ function addUser() {
 
     var u = document.getElementById("username").value;
     var p = document.getElementById("password").value;
+    var e = document.getElementById('email').value;
+
+    var radioButtons = document.querySelectorAll('input[name="userType"]');
+        let userType;
+        for (const radioButton of radioButtons) {
+            if (radioButton.checked) {
+                userType = radioButton.value;
+                break;
+            }
+        }
+    //add recruiter/seeker and email
 
     let url =  URL + '/add/user/';
     fetch(url, {
@@ -51,7 +62,8 @@ function addUser() {
         body: JSON.stringify({
             username: u,
             password: p,
-
+            email: e,
+            accountType: userType,
         }),
         headers: {
             'Content-type': 'application/json',
@@ -109,6 +121,68 @@ function addItem() {
         });
 }
 
+function addPosting() {
+    var t = document.getElementById("title").value;
+    var d = document.getElementById("description").value;
+    var c = document.getElementById("company").value;
+    var l = document.getElementById("location").value;
+
+    var employmentRadio = document.querySelectorAll('input[name="employment"]');
+    let employment;
+    for (const radioButton of radioButtons) {
+        if (radioButton.checked) {
+            employment = radioButton.value;
+            break;
+        }
+    }
+
+    var experienceRadio = document.querySelectorAll('input[name="experience"]');
+    let experience;
+    for (const radioButton of radioButtons) {
+        if (radioButton.checked) {
+            experience = radioButton.value;
+            break;
+        }
+    }
+
+    var educationRadio = document.querySelectorAll('input[name="education"]');
+    let education;
+    for (const radioButton of radioButtons) {
+        if (radioButton.checked) {
+            education = radioButton.value;
+            break;
+        }
+    }
+
+    let url =  URL + '/add/posting/';
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            title: t,
+            description: d,
+            company: c,
+            location: l,
+            employmentType: employment,
+            experienceLevel: experience,
+            educationLevel: education,
+        }),
+        headers: {
+            'Content-type': 'application/json',
+        }
+    })
+        .then((response) => {
+            return response.text();
+        })
+        .then((text) => {
+            console.log(text);
+            alert(text);
+        })
+        .catch((error) => {
+            console.log('THERE WAS A PROBLEM');
+            console.log(error);
+        });
+}
+
 
 // turn js cookie to readable string.
 // from internet.
@@ -127,11 +201,8 @@ function getUsername() {
     return JSON.parse(parseCookie(document.cookie)['login'].slice(2,)).username;
 }
 
-//testing loading fonts 
-// useEffect(() => {
-//     WebFont.load({
-//       google: {
-//         families: ['Dongle', 'Abel']
-//       }
-//     });
-// }, []);
+function sendToProfile() {
+    //different profiles for seeker/recruiter?
+    //send to user profile for now
+    window.location.href = "/profile.html";
+}

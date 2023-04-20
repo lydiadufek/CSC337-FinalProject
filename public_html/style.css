@@ -3,82 +3,153 @@ CSC 337 CHIU YEH CHEN
 this file contains the css needed for the index.html.
 */
 
+/* used for login and recruiter */
+* {
+    box-sizing: border-box;
+}
+
 .font-loader {
     font-family: 'Abel';
 }
 
 /* Index page heder */
 #header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    bottom: 87%;
     background-color: #3D405B;
-    /* Website title and logo */
-    /* Services */
-    /* Contact us --> forum */
+    color: #8D99AE;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height: 15vh;
 }
 
-#left_content{
-    position: fixed;
-    top: 20%;
-    left: 0;
-    right: 50%;
-    bottom: 0;
-    background-color: #9acc93;
+#logo{
+    color: #8D99AE;
+    font-family: 'Dongle', sans-serif;
+    font-size:60px;
+    margin-left:6vw;
 }
 
-.button{
-    margin: 30px;
+#info{
+    color: #8D99AE;
+    display: flex;
+    align-items:center ;
+    font-family: 'Abel';
 }
 
-#right_content{
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    right: 0;
-    bottom: 0;
-    background-color: #e9ba56;
-    overflow-y: scroll;
+
+#info div{
+    margin-right:4vw;
+    font-size:20px;
+    font-weight:600;
 }
 
-.product{
-    border: solid;
-    border-color: rgb(226, 245, 54);
+#jobpost{
+    display:flex;
+    align-items: center;
 }
 
-#post_content{
-    background-color: #EDF2F4;
+#jobpost i{
+    margin-right:4px;
 }
-
-#post_body{
-    background-color: #EDF2F4;
-}
-
-/* The Index body */
-/* #index_body{
-    background-color: #EDF2F4;
-} */
 
 /* Main content of Index page */
-#index_content{
-    position: fixed;
-    text-align: center;
+.index_content{
+    position: absolute;
     font-family: 'Abel';
     font-weight: bolder;
-    bottom: 40%;
-    background-color: #e2eff4;
+    top: 11vh;
+    left:0;
+    right:0;
+    bottom:0;  
+    height:150%;
+    background-color: #EDF2F4;
 }
 
 #logIn {
-    top: 20%;
-    right: 20%;
-    position: fixed;
+    width:80vh;
+    height:50vh;
+    float: right;
+    right:5%;
+    position: relative;
+    background-color: #d8e0e37a;
+    border: solid 1px #d8e0e3c0;
+    box-shadow: 10px 10px #d8e0e3d9;
 }
 
 #createAccount {
-    top: 20%;
-    left: 20%;
-    position: fixed;
+    width:80vh;
+    height:50vh;
+    float: left;
+    left: 5%;
+    position: relative;
+    background-color: #d8e0e37a;
+    border: solid 1px #d8e0e3c0;
+    box-shadow: 10px 10px #d8e0e3d9;
 }
+
+#index_content h1 {
+    display:flex;
+    text-align: center;
+    justify-content: center;
+}
+
+#index_content label {
+    display: inline-block; 
+    margin-top: 5px;
+    margin-left: 3vh;
+    width: 100px; 
+    text-align: right;
+}
+
+.inputButton {
+    position: absolute;
+    bottom:   0;
+    right: 50%;
+    display: flex;
+    float:inline-end;
+    margin: 0 auto;
+}
+
+fieldset {
+    margin-top: 3vh;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.line {
+    display:flex;
+    height: 2px;
+    margin-bottom: 15px;
+    background: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 5px,
+      black 10px,
+      black 20px
+    );
+}
+
+#content {
+    text-align: center;
+    font-family: 'Abel';
+    font-weight: bolder;
+    position: absolute;
+    background-color: #8D99AE;
+    left:0;
+    right:0;
+    top:100vh;
+    height:100%;
+}
+
+#desc {
+    text-align: center;
+    color: #8D99AE;
+}
+
+/* recruiter section */

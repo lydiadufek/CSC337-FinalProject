@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="cssFile" rel="stylesheet" type="text/css" href="style2.css">
+    <!-- icons -->
+    <script src="https://kit.fontawesome.com/0654b390cc.js" crossorigin="anonymous"></script>
+
+    <!-- fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">    
+    <title>Profile</title>
+</head>
+<body>
+    
+    <div id="header"> 
+        <div>
+            <h1 id="logo"> Job Board </h1>
+        </div>
+
+        <div id="info"> 
+           <div> <p> Jobs </p> </div> 
+            <div> <p> Companies </p>  </div>
+            <div id="jobpost">
+                <i class="fa-solid fa-briefcase"></i>
+                <p>Post Jobs </p><br>
+            </div>
+            <div><i class="fa-solid fa-message"></i></div>
+            <div> <i id="profile" class="fa-solid fa-user" onclick="sendToProfile()"></i> </div>
+        </div> 
+    </div>
+
+
+    <div id="left-info">
+
+        <div class="tab">
+            <i class="fa-solid fa-bars"></i>
+            <p>Information</p>
+        </div>
+        <div class="tab">
+            <i class="fa-solid fa-bookmark"></i>
+            <p>Saved jobs</p>
+        </div>
+        <div class="tab">
+            <i class="fa-solid fa-briefcase"></i>
+            <p>Applied jobs</p>
+        </div>
+        <div class="tab">
+            <i class="fa-light fa-star-sharp"></i>
+            <p>Reviews</p>
+        </div>
+
+    </div>
+
+
+    <div id="profile-info"> 
+
+            <h1>Complete your profile information</h1>
+
+            <h2>Personal Information</h2>
+
+            <div>
+                <label for="fname">First Name</label>
+                <input id="name" placeholder="First name" required>
+            </div>
+
+            <div>
+                <label for="lname">Last Name</label>
+                <input id="lname" placeholder="Last name" required>
+            </div>
+
+            <br>
+            <label for="phone">Phone number</label>
+            <input id="phone" placeholder="Phone number" required>
+            <br>
+            <label for ="about">Description</label>
+            <input id="about" placeholder="Write a brief introduction about yourself">
+            <br>
+            <h1>Location</h2>
+            <p>This helps match you with nearby jobs</p>
+            <br>
+            <label for="country">Country</label>
+            <input id="country" placeholder="Country">
+            <br>
+            <label for="city">City</label>
+            <input id="city" placeholder="City">
+            <br>
+            <h2>Education</h2> <p>(Optional)</p>
+            <p>This helps recruiters see your academic achievements</p>
+            <br>
+            <label for="instituation">Institution</label>
+            <input id="instituation" placeholder="College, University... ">
+            <br>
+            <label for="degree">Degree</label>
+            <input id="degree" placeholder="Bachelor, Masters...">
+            <br>
+            <label for="field">Field of study</label>
+            <input id="field" placeholder="Computer science, Business...">
+            <br>
+            <label for="start">Start Date</label>
+            <input id="start" type="date">
+            <br>
+            <label for="end">End Date</label>
+            <input id="end" type="date">
+            <br>
+        <h2>Links </h2>
+        <p> link any of your profiles </p>
+        <br>
+        <input class="profile" >
+        <input class="profile" >
+        <input class="profile" >
+
+    </div>
+
+</body>
+</html>

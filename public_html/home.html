@@ -7,10 +7,13 @@
     <link id="cssFile" rel="stylesheet" type="text/css" href="style2.css">
     <!-- icons -->
     <script src="https://kit.fontawesome.com/0654b390cc.js" crossorigin="anonymous"></script>
+
     <!-- fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">    <title>Profile</title>
     <title>Home</title>
+
 </head>
 <body>
     
@@ -24,31 +27,75 @@
         <div id="info"> 
            <div> <p> Jobs </p> </div> 
             <div> <p> Companies </p>  </div>
-            <div> <i id="profile" class="fa-solid fa-user"></i> </div>
-        </div>   
+            <div id="jobpost">
+                <i class="fa-solid fa-briefcase"></i>
+                <p>Post Jobs </p><br>
+            </div>
+            <div><i class="fa-solid fa-message"></i></div>
+            <div> <i id="profile" class="fa-solid fa-user" onclick="sendToProfile()"></i> </div>
+            
+        </div> 
+          
     </div>
 
 
         <div id="search">
             <input type="text" placeholder=" Job titles, Companies, Keywords..."> 
             <input type="text" placeholder=" City, State, Country...">
-            <button id="search-butt" > Search</button>
-        </div>
-
-        <div id="results">
-
-            <div id="job-details"> 
-
-                
+            <div id="search-butt" > 
+                <i class="fa-solid fa-magnifying-glass"></i> 
+                <p>Search</p>
 
             </div>
+        </div>
 
+        <div id="filters">
 
+            <div class="filter">
+                    <label for="job-type">Job Type:</label>
+                    <select id="job-type">
+                    <option value="All jobs" selected>All jobs</option>
+                    <option value="Full-time">Full time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Remote" >Remote</option>
+                    <option value="Internship" >Internship</option>
+                    <option value="Other">Other</option>
+                    </select>
+            </div>
+            
 
+            <div class="filter">
+                <label for="salary">Salary Range:</label>
+                <select name="salary" id="salary">
+                    <option value="All salaries" selected>All Salaries</option>
+                    <option value="$33,000">$33,000+</option>
+                    <option value="$42,000" >$42,000+</option>
+                    <option value="55,000+" >$55,000+</option>
+                    <option value="$105,000" >$105,000</option>
+                </select>
+            </div>
+           
 
+            <div class="filter">
+                <label for="date">Date Posted:</label>
+                <select name="Date" id="date">
+                    <option value="Past 24h">Past 24h </option>
+                    <option value="Past week">Past week</option>
+                    <option value="Past month" >Past month</option>
+                    <option value="Anytime" selected>Anytime</option>
+                </select>
+            </div>
+        
+        </div>
 
+        <div id="filter-butt" > 
+            <i class="fa fa-thin fa-filter"></i>    
+             <p>Filter</p>
 
         </div>
+
+
+        <div> </div>
 
 
 

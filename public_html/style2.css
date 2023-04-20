@@ -1,26 +1,28 @@
+/* used for home page and profile */
+
 body{
     margin: 0;
     box-sizing: border-box; 
-    background-color:#edf2f4
+    background-color:#e2eef4;
 }
 
 #header{
     display:flex;
     justify-content:space-between;
     align-items:center ;
-    background-color: #8d99ae;
-    height: 15vh;
+    background-color: #3D405B;
+    height: 15vh;   
 }
 
 #logo{
+    color:white;
     font-family: 'Dongle', sans-serif;
     font-size:60px;
     margin-left:6vw;
 }
 
-
-
 #info{
+    color:white;
     display: flex;
     align-items:center ;
     font-family: 'Abel';
@@ -28,13 +30,23 @@ body{
 
 
 #info div{
-    margin-right:5vw;
+    margin-right:4vw;
     font-size:20px;
     font-weight:600;
 }
 
+#jobpost{
+    display:flex;
+    align-items: center;
+}
+
+#jobpost i{
+    margin-right:4px;
+}
+
+
 #search{
-    padding-left:14vw;
+    padding-left:10vw;
     padding-top:15vh;
 
 }
@@ -43,18 +55,85 @@ body{
     border: 1px solid #8d99ae;
     padding-left:1vw;
     border-radius: 5px;
-    width: 65vh;
-    height: 7vh;
+    width: 70vh;
+    height: 8vh;
     margin-right:30px;
 }
 
 
+
 #search-butt{
+    display:inline;
     border: 1px solid black;
     background-color: #8d99ae;
     border-radius: 8px;
-    padding:5px 20px;
-    font-family: 'Dongle', sans-serif;
-    font-size:25px;
+    padding:12px 20px;
+}
+
+#search-butt p, #filter-butt p{
+    font-size:27px;
     font-weight:700;
+    font-family: 'Dongle', sans-serif;
+    margin:0;
+    display:inline;
+    width:0px;
+    margin:0px;
+}
+
+#filters{
+    display:flex;
+    justify-content: space-evenly;
+    margin:40px;
+}
+
+.filter{
+    font-family: 'Abel';
+    font-weight: 800;
+    font-size: 18px;
+    color:#3D405B;
+
+}
+
+select{
+    padding:10px;
+    border-radius:3px;
+    background-color: #8d99ae;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 500;
+}
+
+#filter-butt{
+    text-align: center;
+    font-family: 'Dongle', sans-serif;   
+    background-color: #3D405B;
+    color:white;
+    border-radius: 8px;
+    width:9vw;
+    padding: 5px 5px;
+    margin:auto;
+
+}
+
+#left-info{
+    width:24%;
+    float:left;
+    display: flex;
+    height:100vh;
+    flex-direction: column;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
+}
+
+.tab{
+    display:flex ;
+    justify-content: center;
+    align-items:center ;
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+    margin-top: 55px;
+}
+
+.tab i{
+    margin-right:12px;
 }
