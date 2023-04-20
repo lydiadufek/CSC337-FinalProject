@@ -9,16 +9,32 @@
     <title>Ostaa</title>
     <link id="cssFile" rel="stylesheet" type="text/css" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <!-- Font links: Abel, Dongle -->
+    <!-- icons -->
+    <script src="https://kit.fontawesome.com/0654b390cc.js" crossorigin="anonymous"></script>
+    <!-- fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">    
 </head>
 
 <body id="index_body">
-    <div id="header">
-        <h1>JobSite</h1>
-        <span><p>Contact Us</p></span>
-        <span><p>Services</p></span>
+    <div id="header"> 
+
+        <div>
+            <h1 id="logo"> Job Board </h1>
+        </div>
+
+        <div id="info"> 
+           <div> <p> Services </p> </div> 
+            <div> <p> Contact us </p>  </div>
+            <div id="jobpost">
+                <i class="fa-solid fa-briefcase"></i>
+                <p>Post Jobs </p><br>
+            </div>
+            <div><i class="fa-solid fa-message"></i></div>
+            <div> <i id="profile" class="fa-solid fa-user" onclick="sendToProfile()"></i> </div>
+        </div> 
+          
     </div>
 
     <div id="index_content">
@@ -38,7 +54,7 @@
             <label for="email">Email</label>
             <input type="email" id="email" name="email"><br>
 
-            <fieldset id="test">
+            <fieldset>
                 <legend>Are you looking for a job or are you a recruiter?</legend>
                     <div>
                         <label for="choice1" class="RadioButtons">Looking for a job</label>
@@ -47,6 +63,9 @@
                         <input type="radio" id="choice2" name="userType" value="recruiter" required></span>
                     </div>
             </fieldset>
+            <input type="submit" value="Create an account now!" id="addUser" class="inputButton" onclick="addUser()"><br>
+
+        </div>
 
         <div id="logIn">
             <h1>Login</h1>

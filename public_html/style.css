@@ -3,6 +3,7 @@ CSC 337 CHIU YEH CHEN
 this file contains the css needed for the index.html.
 */
 
+/* used for login and recruiter */
 * {
     box-sizing: border-box;
 }
@@ -24,6 +25,36 @@ this file contains the css needed for the index.html.
     justify-content:space-between;
     align-items:center;
     height: 15vh;
+}
+
+#logo{
+    color: #8D99AE;
+    font-family: 'Dongle', sans-serif;
+    font-size:60px;
+    margin-left:6vw;
+}
+
+#info{
+    color: #8D99AE;
+    display: flex;
+    align-items:center ;
+    font-family: 'Abel';
+}
+
+
+#info div{
+    margin-right:4vw;
+    font-size:20px;
+    font-weight:600;
+}
+
+#jobpost{
+    display:flex;
+    align-items: center;
+}
+
+#jobpost i{
+    margin-right:4px;
 }
 
 /* Main content of Index page */
@@ -120,3 +151,5 @@ fieldset {
     text-align: center;
     color: #8D99AE;
 }
+
+/* recruiter section */

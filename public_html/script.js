@@ -25,6 +25,7 @@ function userLogin() {
             
             if (JSON.parse(text)['status'] == "match") {
                 console.log('href');
+                //if userType = recruiter or seeker
                 window.location.href = "/home.html";
             } else {
                 document.getElementById("login_p").value = "wrong username/password!";
@@ -121,7 +122,6 @@ function addItem() {
 }
 
 function addPosting() {
-
     var t = document.getElementById("title").value;
     var d = document.getElementById("description").value;
     var c = document.getElementById("company").value;
@@ -201,11 +201,8 @@ function getUsername() {
     return JSON.parse(parseCookie(document.cookie)['login'].slice(2,)).username;
 }
 
-//testing loading fonts 
-// useEffect(() => {
-//     WebFont.load({
-//       google: {
-//         families: ['Dongle', 'Abel']
-//       }
-//     });
-// }, []);
+function sendToProfile() {
+    //different profiles for seeker/recruiter?
+    //send to user profile for now
+    window.location.href = "/profile.html";
+}

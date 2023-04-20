@@ -1,3 +1,5 @@
+/* used for home page and profile */
+
 body{
     margin: 0;
     box-sizing: border-box; 
@@ -9,8 +11,7 @@ body{
     justify-content:space-between;
     align-items:center ;
     background-color: #3D405B;
-    height: 15vh;
-    
+    height: 15vh;   
 }
 
 #logo{
