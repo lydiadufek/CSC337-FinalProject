@@ -13,28 +13,18 @@ function userLogin() {
     let url = URL + '/account/login/' + u + '/' + p + '/';
     fetch(url)
         .then((response) => {
-            // console.log(response);
-            // if (response.text() == 'failed') {
-            //     document.getElementById("login_p").value = "wrong username/password!";
-            // } else {
-            //     window.location.href = response.url;
-            // }
             return response.text();
         })
         .then((text) => {
-            
-            if (JSON.parse(text)['status'] == "match") {
-                console.log('href');
-                //if userType = recruiter or seeker
-                window.location.href = "/home.html";
+            console.log('username' + u);
+            if (JSON.parse(text)['status'] == true) {
+                searchUsername(u);
             } else {
                 //document.getElementById("login_p").value = "wrong username/password!";
             }
-            console.log(text);
         })
         .catch((error) => {
             console.log('THERE WAS A PROBLEM');
-            //console.log(error);
         });
 
 }
@@ -183,6 +173,24 @@ function addPosting() {
         });
 }
 
+function searchUsername(u) {  
+    console.log('i got here');
+    var url = '/search/users/' + u;
+  
+    let p = fetch(url);
+    let ps = p.then( (results) => {
+      return results.json();
+    }).then((items) => { 
+        if(items[0].accountType == 'recruiter') {
+            window.location.href = "/recruiter.html";
+        } else {
+            //job seeker
+            window.location.href = "/home.html";
+        }
+    }).catch(() => { 
+      alert('something went wrong');
+    });
+  }
 
 // turn js cookie to readable string.
 // from internet.

@@ -120,12 +120,26 @@ async function startServer() {
             var newUser = new User({
                 username: req.body.username,
                 hash: hs,
-                email : req.body.email
+                email : req.body.email,
+                accountType: req.body.accountType
             });
             newUser.save();
             res.end("save user susses");
         });
     })
+
+    app.get('/search/users/:keyword', (req, res) => {
+        let keyword = req.params.keyword;
+        let p1 = User.find({username: keyword}).exec();
+      
+        p1.then( (results) => { 
+          res.end( JSON.stringify(results) );
+        });
+        p1.catch( (error) => {
+          console.log(error);
+          res.end('FAIL');
+        });
+    });
 
     app.listen(port, () =>
         console.log(`App listening at http://165.22.176.109:${port}`))
