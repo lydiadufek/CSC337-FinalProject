@@ -93,6 +93,11 @@ async function startServer() {
         let p = req.params.password;
 
         User.findOne({ username: u}).exec().then((results) => {
+            if(results == null){
+                res.end(JSON.stringify({ 'status': 'can not find user' }));
+                return;
+            } 
+
            console.log("result" + results); // single object
            bcrypt.compare(p, results.hash, function(err, result) {
             console.log(result);
