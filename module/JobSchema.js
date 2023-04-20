@@ -8,13 +8,13 @@ const JobSchema = mongoose.Schema({
     experienceLevel: String, // ('Entry-level', 'Mid-level', 'Senior-level', etc.)
     educationLevel: String, // ('High School', 'Bachelor's Degree','Master's Degree', etc.)
     salary: {
-        type: String,
+        JobType: String, //['Fixed', 'Hourly']
         amount: Number,
         currency: String,
     },
     postedBy: {
         RecruiterUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // (ID of the recruiter who posted the job listing)
-        username: String,
+        RecruiterUserName: String,
     },
     Applicants: [{
         UserID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

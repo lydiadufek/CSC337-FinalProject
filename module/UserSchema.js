@@ -1,7 +1,15 @@
 const mongoose = require("mongoose");
 const UserSchema = mongoose.Schema({
-    username: String,
-    email: String,
+    username: {
+        type: String,
+        required: true,
+        unique: true
+      },
+    email:{
+        type: String,
+        required: true,
+        unique: true
+      },
     hash: String,
     // salt: String,
     accountType: String, // ('Job Seeker' or 'Recruiter')
