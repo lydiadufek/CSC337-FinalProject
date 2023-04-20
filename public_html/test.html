@@ -1,0 +1,109 @@
+<!-- CSC337 CHIU YEH CHEN
+    This file contains a html to add user and login.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Ostaa</title>
+    <link id="cssFile" rel="stylesheet" type="text/css" href="style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!-- Font links: Abel, Dongle -->
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+
+<body id="index_body">
+    <!-- title: String,
+    description: String,
+    company: String,
+    location: String,
+    employmentType: String,  // ('Full-time', 'Part-time', 'Contract', etc.)
+    experienceLevel: String, // ('Entry-level', 'Mid-level', 'Senior-level', etc.)
+    educationLevel: String, // ('High School', 'Bachelor's Degree','Master's Degree', etc.)
+    salary: {
+        type: String,
+        amount: Number,
+        currency: String,
+    },
+    postedBy: {
+        RecruiterUserId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // (ID of the recruiter who posted the job listing)
+        username: String,
+    },
+    Applicants: [{
+        UserID: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+        Review: String,
+        Rating: Number,
+        TimePosted: Date
+    }],
+    createdAt: Date,
+    updatedAt: Date, -->
+
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title"><br>
+
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description"><br>
+
+    <label for="company">Company name</label>
+    <input type="text" id="company" name="company"><br>
+
+    <label for="location">location</label>
+    <input type="text" id="location" name="location"><br>
+
+    <fieldset>
+        <legend>Employment type</legend>
+            <div>
+                <label for="fullTime">Full-time</label>
+                <span><input type="radio" name="employment" value="Full-time" required></span>
+                <span><label for="partTime">Part-time</label>
+                <input type="radio" name="employment" value="Part-time" required></span>
+                <span><label for="contract">Contract</label>
+                <input type="radio" name="employment" value="Contract" required></span>
+            </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Experience level</legend>
+            <div>
+                <div>
+                    <label for="entryLevel">Entry-level</label>
+                    <span><input type="radio" name="experience" value="Entry-level" required></span>
+                    <span><label for="midLevel">Mid-level</label>
+                    <input type="radio" name="experience" value="Mid-level" required></span>
+                    <span><label for="seniorLevel">Senior-level</label>
+                    <input type="radio" name="experience" value="Senior-level" required></span>
+            </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Education level</legend>
+            <div>
+                <label for="highSchool">High School</label>
+                <span><input type="radio" name="education" value="High School" required></span>
+                <span><label for="bachelors">Bachelor's Degree</label>
+                <input type="radio" name="education" value="Bachelor's Degree" required></span>
+                <span><label for="masters">Master's Degree</label>
+                <input type="radio" name="education" value="Master's Degree" required></span>
+            </div>
+    </fieldset>
+
+    <script>
+        const btn = document.querySelector('#btn');        
+        const radioButtons = document.querySelectorAll('input[name="employment"]');
+        btn.addEventListener("click", () => {
+            let selectedSize;
+            for (const radioButton of radioButtons) {
+                if (radioButton.checked) {
+                    selectedSize = radioButton.value;
+                    break;
+                }
+            }
+            // show the output:
+            output.innerText = selectedSize ? `You selected ${selectedSize}` : `You haven't selected any size`;
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

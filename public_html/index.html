@@ -38,18 +38,15 @@
             <label for="email">Email</label>
             <input type="email" id="email" name="email"><br>
 
-            <fieldset>
+            <fieldset id="test">
                 <legend>Are you looking for a job or are you a recruiter?</legend>
                     <div>
                         <label for="choice1" class="RadioButtons">Looking for a job</label>
-                        <span><input type="radio" id="choice1" name="jobSeeker" value="looking" required></span>
+                        <span><input type="radio" id="choice1" name="userType" value="looking" required></span>
                         <span><label for="choice1" class="RadioButtons">Recruiter</label>
-                        <input type="radio" id="choice2" name="jobRecruiter" value="recruiter" required></span>
+                        <input type="radio" id="choice2" name="userType" value="recruiter" required></span>
                     </div>
             </fieldset>
-
-            <input type="submit" value="Create an account now!" id="add_user" class="inputButton" onclick="addUser()"><br>
-        </div>
 
         <div id="logIn">
             <h1>Login</h1>
