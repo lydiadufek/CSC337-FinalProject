@@ -28,13 +28,13 @@ function userLogin() {
                 //if userType = recruiter or seeker
                 window.location.href = "/home.html";
             } else {
-                document.getElementById("login_p").value = "wrong username/password!";
+                //document.getElementById("login_p").value = "wrong username/password!";
             }
             console.log(text);
         })
         .catch((error) => {
             console.log('THERE WAS A PROBLEM');
-            console.log(error);
+            //console.log(error);
         });
 
 }

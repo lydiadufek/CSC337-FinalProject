@@ -93,7 +93,7 @@ async function startServer() {
         let p = req.params.password;
 
         User.findOne({ username: u}).exec().then((results) => {
-           console.log(results); // single object
+           console.log("result" + results); // single object
            bcrypt.compare(p, results.hash, function(err, result) {
             console.log(result);
             res.end(JSON.stringify({ 'status': result }));
@@ -114,17 +114,16 @@ async function startServer() {
             console.log("hashPW : "+ hs);
             var newUser = new User({
                 username: req.body.username,
-                hash: hs
+                hash: hs,
+                email : req.body.email
             });
             newUser.save();
             res.end("save user susses");
         });
-
     })
 
     app.listen(port, () =>
         console.log(`App listening at http://165.22.176.109:${port}`))
-
 }
 
 
