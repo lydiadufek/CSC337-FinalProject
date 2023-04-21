@@ -79,6 +79,64 @@ function authenticate(req, res, next) {
     res.redirect('/index.html');
 }
 
+async function filterJob(req) {
+    filter = {};
+    and = [];
+    or = [];
+    console.log(req.body);
+
+    if (req.body.title != "" && req.body.title != undefined) { } {
+        or.push({ title: new RegExp('\w*' + req.body.title + '\w*') });
+        or.push({ description: new RegExp('\w*' + req.body.title + '\w*') });
+    }
+    if (req.body.company != "" && req.body.company != undefined) {
+        or.push({ company: new RegExp('\w*' + req.body.company + '\w*') });
+    }
+    if (req.body.location != "" && req.body.location != undefined) {
+        and.push({ location: new RegExp('\w*' + req.body.location + '\w*') });
+    }
+    if (req.body.employmentType != "" && req.body.employmentType != undefined) {
+        and.push({ employmentType: req.body.employmentType });
+    }
+    if (req.body.experienceLevel != "" && req.body.experienceLevel != undefined) {
+        and.push({ experienceLevel: req.body.experienceLevel });
+    }
+    if (req.body.educationLevel != "" && req.body.educationLevel != undefined) {
+        and.push({ educationLevel: req.body.educationLevel });
+    }
+    if (req.body.JobType != "" && req.body.JobType != undefined) {
+        and.push({ "salary.JobType": req.body.JobType });
+    }
+    if (req.body.amount != "" && req.body.amount != undefined) {
+        and.push({ "salary.amount": { $gte: parseInt(req.body.amount) } });
+    }
+    if (req.body.currency != undefined && req.body.currency != undefined) {
+        and.push({ "salary.currency": req.body.currency });
+    }
+    if (req.body.RecruiterUserId != undefined && req.body.RecruiterUserId != undefined) {
+        and.push({
+            postedBy: {
+                RecruiterUserId: req.body.RecruiterUserId
+            }
+        });
+    }
+    if (req.body.RecruiterUserName != undefined && req.body.RecruiterUserName != undefined) {
+        and.push({
+            postedBy: {
+                RecruiterUserName: req.body.RecruiterUserName
+            }
+        });
+    }
+    if (req.body.date != undefined && req.body.date != '') {
+        and.push({
+            createAt: { $gte: new Date(req.body.date) }
+        })
+    }
+    if (and.length > 0) filter.$and = and;
+    if (or.length > 0) filter.$or = or;
+    return filter;
+
+}
 
 // Start the server using the http.
 // and listen the user input to return database data.
@@ -92,18 +150,18 @@ async function startServer() {
         let u = req.params.username;
         let p = req.params.password;
 
-        User.findOne({ username: u}).exec().then((results) => {
-            if(results == null){
+        User.findOne({ username: u }).exec().then((results) => {
+            if (results == null) {
                 res.end(JSON.stringify({ 'status': 'can not find user' }));
                 return;
-            } 
+            }
 
-           console.log("result" + results); // single object
-           bcrypt.compare(p, results.hash, function(err, result) {
-            console.log(result);
-            res.end(JSON.stringify({ 'status': result }));
-        });
-    
+            console.log("result" + results); // single object
+            bcrypt.compare(p, results.hash, function (err, result) {
+                console.log(result);
+                res.end(JSON.stringify({ 'status': result }));
+            });
+
         }).catch((err) => {
             console.log(err);
             res.end("login failed");
@@ -117,21 +175,35 @@ async function startServer() {
             var newUser = new User({
                 username: req.body.username,
                 hash: hs,
-                email : req.body.email
+                email: req.body.email
             });
             newUser.save();
             res.end("save user susses");
         });
     })
 
-    app.post('/search/job/', function (req, res) {
-        and = JobFilter(req);
-        console.log(and);
-        Job.find({$and : and}).exec().then((results) => {
+    app.post('/search/job/', async function (req, res) {
+        // var and;
+        filter = await filterJob(req);
+        console.log(filter);
+        // console.log({ $and: and });
+
+        // res.end(JSON.stringify(and));
+
+        Job.find(filter).limit(3).exec().then((results) => {
             console.log(results);
             res.end(JSON.stringify(results));
         })
     })
+
+    // .then((and) => {
+    //     console.log(and);
+    //     Job.find({ $and: and }).exec().then((results) => {
+    //         console.log(results);
+    //         res.end(JSON.stringify(results));
+    //     })
+
+
 
 
 
@@ -141,82 +213,7 @@ async function startServer() {
 }
 
 
-function JobFilter(req) {
-    and = [];
-    if (req.params.title != undefined) {
-        and.push({ title: new RegExp('\w*' + req.params.title + '\w*') });
-        and.push({ description: new RegExp('\w*' + req.params.title + '\w*') });
-    }
-    if (req.params.company != undefined) {
-        and.push({ company: new RegExp('\w*' + req.params.company + '\w*') });
-    }
-    if (req.params.location != undefined) {
-        and.push({ location: new RegExp('\w*' + req.params.location + '\w*') });
-    }
-    if (req.params.employmentType != undefined) {
-        and.push({ employmentType: req.params.employmentType });
-    }
-    if (req.params.employmentType != undefined) {
-        and.push({ employmentType: req.params.employmentType });
-    }
-    if (req.params.educationLevel != undefined) {
-        and.push({ educationLevel: req.params.educationLevel });
-    }
-    if (req.params.JobType != undefined) {
-        and.push({
-            salary: {
-                JobType: req.params.JobType
-            }
-        });
-    }
-    if (req.params.lowSalary != undefined && req.params.HighSalary != undefined) {
-        and.push({
-            salary: {
-                amount: { $in: [req.params.lowSalary, req.params.highSalary] }
-            }
-        });
-    } else if (req.params.lowSalary != undefined) {
-        and.push({
-            salary: {
-                amount: { $gte: req.params.lowSalary }
-            }
-        });
-    } else if (req.params.HighSalary != undefined) {
-        and.push({
-            salary: {
-                amount: { $lte: req.params.HighSalary }
-            }
-        });
-    }
-    if (req.params.currency != undefined) {
-        and.push({
-            salary: {
-                currency: req.params.currency
-            }
-        });
-    }
-    if (req.params.RecruiterUserId != undefined) {
-        and.push({
-            postedBy: {
-                RecruiterUserId: req.params.RecruiterUserId
-            }
-        });
-    }
-    if (req.params.RecruiterUserName != undefined) {
-        and.push({
-            postedBy: {
-                RecruiterUserName: req.params.RecruiterUserName
-            }
-        });
-    }
-    if (req.params.dateAfter != undefined) {
-        and.push({
-            createAt: { $gte: req.params.dateAfter }
-        })
-    }
-    return and;
 
-}
 
 // start the server and connect to the database.
 async function main() {
