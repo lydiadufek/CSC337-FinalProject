@@ -37,13 +37,13 @@ function addUser() {
     var e = document.getElementById('email').value;
 
     var radioButtons = document.querySelectorAll('input[name="userType"]');
-        let userType;
-        for (const radioButton of radioButtons) {
-            if (radioButton.checked) {
-                userType = radioButton.value;
-                break;
-            }
+    let userType;
+    for (const radioButton of radioButtons) {
+        if (radioButton.checked) {
+            userType = radioButton.value;
+            break;
         }
+    }
     //add recruiter/seeker and email
 
     if(u == undefined || p == undefined || e == undefined || userType == undefined) {
@@ -85,7 +85,7 @@ function addItem() {
     var s = document.getElementById("stat").value;
     var u = getUsername();
 
-    let url =  URL + '/add/item/' + u + '/';
+    let url = URL + '/add/item/' + u + '/';
     fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -147,7 +147,7 @@ function addPosting() {
         }
     }
 
-    let url =  URL + '/add/posting/';
+    let url = URL + '/add/posting/';
     fetch(url, {
         method: 'POST',
         body: JSON.stringify({
@@ -194,6 +194,85 @@ function searchUsername(u) {
       alert('something went wrong');
     });
   }
+function searchJob() {
+
+    var t = document.getElementById("title").value;
+    var l = document.getElementById("location").value;
+    var e = document.getElementById("employment-type").value;
+    var a = document.getElementById("amount").value;
+    var d = document.getElementById("date").value;
+    if (d == "24h") {
+        d = new Date();
+        d.setDate(d.getDate() - 1);
+    } else if (d == "week") {
+        d = new Date();
+        d.setDate(d.getDate() - 7);
+    } else if (d == "month") {
+        d = new Date();
+        d.setDate(d.getDate() - 30);
+    } else if (d == "Anytime") {
+        d = "";
+
+    }
+    if (a == "All salaries") {
+        a = "";
+    }
+    if (e == "All jobs") {
+        e = "";
+    }
+
+
+
+    // var c = document.getElementById("company").value;
+    // var l = document.getElementById("location").value;
+
+    console.log(JSON.stringify({
+        title: t,
+        company: t,
+        description: t,
+        location: l,
+        date: d,
+        amount: a,
+        employmentType: e
+        // employmentType: employment,
+        // experienceLevel: experience,
+        // educationLevel: education,
+    }));
+
+    let url = URL + '/search/job/';
+    fetch(url, {
+        method: 'POST',
+        body: JSON.stringify({
+            title: t,
+            company: t,
+            description: t,
+            location: l,
+            date: d,
+            amount: a,
+            employmentType: e
+            // employmentType: employment,
+            // experienceLevel: experience,
+            // educationLevel: education,
+        }),
+        headers: {
+            'Content-type': 'application/json',
+        }
+    })
+        .then((response) => {
+            return response.text();
+        })
+        .then((text) => {
+            console.log(text);
+            alert(text);
+        })
+        .catch((error) => {
+            console.log('THERE WAS A PROBLEM');
+            console.log(error);
+        });
+
+
+}
+
 
 // turn js cookie to readable string.
 // from internet.

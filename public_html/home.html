@@ -38,6 +38,14 @@
             <i class="fa-solid fa-magnifying-glass"></i> 
             <p>Search</p>
 
+        <div id="search">
+            <input type="text" id = "title" placeholder=" Job titles, Companies, Keywords..."> 
+            <input type="text" id = "location" placeholder=" City, State, Country...">
+            <div id="search-butt" onclick="searchJob()"> 
+                <i class="fa-solid fa-magnifying-glass"></i> 
+                <p>Search</p>
+
+            </div>
         </div>
     </div>
 
@@ -73,12 +81,60 @@
                 <option value="Past month" >Past month</option>
                 <option value="Anytime" selected>Anytime</option>
             </select>
+        <div id="filters">
+
+            <div class="filter">
+                    <label for="employment-type">Job Type:</label>
+                    <select id="employment-type">
+                    <option value="All jobs" selected>All jobs</option>
+                    <option value="Full-time">Full time</option>
+                    <option value="Part-time">Part-time</option>
+                    <!-- <option value="Remote" >Remote</option>
+                    <option value="Internship" >Internship</option>
+                    <option value="Other">Other</option> -->
+                    </select>
+            </div>
+            
+
+            <div class="filter">
+                <label for="amount">Salary Range:</label>
+                <select name="amount" id="amount">
+                    <option value="All salaries" selected>All Salaries</option>
+                    <option value="33000">$33,000+</option>
+                    <option value="42000" >$42,000+</option>
+                    <option value="55000" >$55,000+</option>
+                    <option value="105000" >$105,000</option>
+                </select>
+            </div>
+           
+
+            <div class="filter">
+                <label for="date">Date Posted:</label>
+                <select name="Date" id="date">
+                    <option value="24h">Past 24h </option>
+                    <option value="week">Past week</option>
+                    <option value="month" >Past month</option>
+                    <option value="Anytime" selected>Anytime</option>
+                </select>
+            </div>
+        
         </div>
     </div>
 
     <div id="filter-butt" > 
         <i class="fa fa-thin fa-filter"></i>    
             <p>Filter</p>
+        <div id="filter-butt" > 
+            <i class="fa fa-thin fa-filter"></i>    
+             <p>Filter</p>
+
+        </div>
+
+
+        <div> </div>
+
+
+        <script src="script.js"></script>
 
     </div>
     <div> </div>
