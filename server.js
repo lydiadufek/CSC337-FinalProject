@@ -129,7 +129,7 @@ async function filterJob(req) {
     }
     if (req.body.date != undefined && req.body.date != '') {
         and.push({
-            createAt: { $gte: new Date(req.body.date) }
+            createdAt: { $gte: new Date(req.body.date) }
         })
     }
     if (and.length > 0) filter.$and = and;
@@ -205,16 +205,11 @@ async function startServer() {
         });
     });
 
+
     app.post('/search/job/', async function (req, res) {
-        // var and;
+
         filter = await filterJob(req);
-        console.log(filter);
-        // console.log({ $and: and });
-
-        // res.end(JSON.stringify(and));
-
-        Job.find(filter).limit(3).exec().then((results) => {
-            console.log(results);
+        Job.find(filter).exec().then((results) => {
             res.end(JSON.stringify(results));
         })
     })
