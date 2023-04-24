@@ -171,16 +171,39 @@ async function startServer() {
     app.post('/add/user/', function (req, res) {
         // res.write(JSON.stringify(User.find().exec()));
         // console.log(req.body.username);
-        bcrypt.hash(req.body.password, saltRounds, function (err, hs) {
+        let p1 = User.find({username: req.params.username}).exec();
+        p1.then( (results) => { 
+            if (results.length > 0) {
+            res.end('That username is already taken.');
+            } else {
+            bcrypt.hash(req.body.password, saltRounds, function (err, hs) {
             var newUser = new User({
                 username: req.body.username,
                 hash: hs,
                 email: req.body.email
             });
             newUser.save();
-            res.end("save user susses");
+            res.end("saved user");
+            });
+            }  
+            p1.catch( (error) => {
+                res.end('Failed to create new account.');
+            });   
         });
-    })
+    });
+
+    app.get('/search/users/:keyword', (req, res) => {
+        let keyword = req.params.keyword;
+        let p1 = User.find({username: keyword}).exec();
+      
+        p1.then( (results) => { 
+          res.end( JSON.stringify(results) );
+        });
+        p1.catch( (error) => {
+          console.log(error);
+          res.end('FAIL');
+        });
+    });
 
     app.post('/search/job/', async function (req, res) {
         // var and;
@@ -202,10 +225,6 @@ async function startServer() {
     //         console.log(results);
     //         res.end(JSON.stringify(results));
     //     })
-
-
-
-
 
     app.listen(port, () =>
         console.log(`App listening at http://165.22.176.109:${port}`))

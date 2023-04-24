@@ -199,7 +199,7 @@ function searchJob() {
     var t = document.getElementById("title").value;
     var l = document.getElementById("location").value;
     var e = document.getElementById("employment-type").value;
-    var a = document.getElementById("amount").value;
+    var a = document.getElementById("salary").value;
     var d = document.getElementById("date").value;
     if (d == "24h") {
         d = new Date();
@@ -263,7 +263,7 @@ function searchJob() {
         })
         .then((text) => {
             console.log(text);
-            alert(text);
+            displayDiv(text);
         })
         .catch((error) => {
             console.log('THERE WAS A PROBLEM');
@@ -273,6 +273,33 @@ function searchJob() {
 
 }
 
+function displayDiv(items) {
+  let items_div = document.getElementById("displayContent");
+
+  //clearing the display area
+//   while (items_div.firstChild) {
+//     items_div.removeChild(items_div.firstChild);
+//   }
+  
+  for(let i=0; i < items.length; i++) {
+    console.log(items[i])
+    // formatString = '<div' + '">' 
+    //   + items[i].title + '<br/>' 
+    //   + '' + '<br/>' 
+    //   + items[i].description + '<br/>' 
+    //   + items[i].company +'<br/>' 
+    //   + items[i].location + '</div>\n' + '<br/>';
+
+    // //styling the new div
+    // let div = document.createElement("div");
+    // div.style.border = "dashed 2px rgb(29, 29, 83)";
+    // div.style.marginTop = "15px";
+    // div.style.textAlign = "center"
+    // div.innerHTML = formatString;
+    
+    // items_div.appendChild(div);
+  }
+}
 
 // turn js cookie to readable string.
 // from internet.
