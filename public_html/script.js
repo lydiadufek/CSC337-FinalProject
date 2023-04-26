@@ -259,10 +259,9 @@ function searchJob() {
         }
     })
         .then((response) => {
-            return response.text();
+            return response.json();
         })
         .then((text) => {
-            console.log(text);
             displayDiv(text);
         })
         .catch((error) => {
@@ -274,31 +273,38 @@ function searchJob() {
 }
 
 function displayDiv(items) {
-  let items_div = document.getElementById("displayContent");
+    let items_div = document.getElementById("displayContent");
 
-  //clearing the display area
-//   while (items_div.firstChild) {
-//     items_div.removeChild(items_div.firstChild);
-//   }
+    //clearing the display area
+    while (items_div.firstChild) {
+        items_div.removeChild(items_div.firstChild);
+    }
   
-  for(let i=0; i < items.length; i++) {
-    console.log(items[i])
-    // formatString = '<div' + '">' 
-    //   + items[i].title + '<br/>' 
-    //   + '' + '<br/>' 
-    //   + items[i].description + '<br/>' 
-    //   + items[i].company +'<br/>' 
-    //   + items[i].location + '</div>\n' + '<br/>';
+    if(items.length == 0) {
+        items_div.innerHTML = 'No job results found. Try redefining your search terms';
+    }
 
-    // //styling the new div
-    // let div = document.createElement("div");
-    // div.style.border = "dashed 2px rgb(29, 29, 83)";
-    // div.style.marginTop = "15px";
-    // div.style.textAlign = "center"
-    // div.innerHTML = formatString;
-    
-    // items_div.appendChild(div);
-  }
+    for(let i=0; i < items.length; i++) {
+        console.log(items[i])
+        formatString = '<div' + '">' 
+        + items[i].title.bold() + '<br/>' 
+        + '<p> Job Description </p>' 
+        + items[i].description + '<br/>' 
+        + '' + '<br/>' 
+        + 'Company: ' + items[i].company +'<br/>' 
+        + 'Field location: ' + items[i].location + '</div>\n' + '<br/>';
+        // employmentType: String,  // ('Full-time', 'Part-time', 'Contract', etc.)
+        // experienceLevel: String, // ('Entry-level', 'Mid-level', 'Senior-level', etc.)
+        // educationLevel: String
+        // salary
+
+        //styling the new div
+        let div = document.createElement("div");
+        div.setAttribute('id', 'posting');
+        div.innerHTML = formatString;
+        
+        items_div.appendChild(div);
+    }
 }
 
 // turn js cookie to readable string.
