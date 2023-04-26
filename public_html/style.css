@@ -61,9 +61,7 @@ this file contains the css needed for the index.html.
 .index_content{
     position: absolute;
     font-family: 'Abel';
-    font-weight: bolder;
-
-    
+    font-weight: bolder;    
     top: 11vh;
     left:0;
     right:0;

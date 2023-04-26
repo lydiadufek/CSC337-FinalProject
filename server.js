@@ -156,9 +156,9 @@ async function startServer() {
                 return;
             }
 
-            console.log("result" + results); // single object
+            // console.log("result" + results); // single object
             bcrypt.compare(p, results.hash, function (err, result) {
-                console.log(result);
+                // console.log(result);
                 res.end(JSON.stringify({ 'status': result }));
             });
 
