@@ -221,17 +221,31 @@ async function startServer() {
         })
     });
 
-    app.get("apply/job/:applierId/:jobId", (req, res) => {
+    app.get("/apply/job/:applierId/:jobId", (req, res) => {
         let arr = [];
         Job.findOne({ _id: req.params.jobId }).then((result) => {
             if (result.Applicants != undefined) arr = result.Applicants;
+            console.log(arr);
+            for (applier in arr) {
+                console.log("arr[applier].UserID : " + arr[applier].UserID);
+                console.log("req.params.applierId : " + req.params.applierId);
+                console.log(arr[applier].UserID == req.params.applierId);
+
+                if (arr[applier].UserID == req.params.applierId) {
+                    res.end("already apply");
+                    return;
+                }
+            }
+
             arr.push({
                 UserID: req.params.applierId,
             });
             Job.findOneAndUpdate({ _id: req.params.jobId }, { Applicants: arr })
-                .then(console.log("apply job susses"));
-        })
-        res.end("susses");
+                .then(() => {
+                    console.log("apply job susses")
+                    res.end("susses")
+                });
+        });
     });
 
 

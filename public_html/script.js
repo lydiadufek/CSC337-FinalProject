@@ -176,24 +176,24 @@ function addPosting() {
         });
 }
 
-function searchUsername(u) {  
+function searchUsername(u) {
     console.log('i got here');
     var url = '/search/users/' + u;
-  
+
     let p = fetch(url);
-    let ps = p.then( (results) => {
-      return results.json();
-    }).then((items) => { 
-        if(items[0].accountType == 'recruiter') {
+    let ps = p.then((results) => {
+        return results.json();
+    }).then((items) => {
+        if (items[0].accountType == 'recruiter') {
             window.location.href = "/recruiter.html";
         } else {
             //job seeker
             window.location.href = "/home.html";
         }
-    }).catch(() => { 
-      alert('something went wrong');
+    }).catch(() => {
+        alert('something went wrong');
     });
-  }
+}
 function searchJob() {
 
     var t = document.getElementById("title").value;
@@ -279,20 +279,20 @@ function displayDiv(items) {
     while (items_div.firstChild) {
         items_div.removeChild(items_div.firstChild);
     }
-  
-    if(items.length == 0) {
+
+    if (items.length == 0) {
         items_div.innerHTML = 'No job results found. Try redefining your search terms';
     }
 
-    for(let i=0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
         console.log(items[i])
-        formatString = '<div' + '">' 
-        + items[i].title.bold() + '<br/>' 
-        + '<p> Job Description </p>' 
-        + items[i].description + '<br/>' 
-        + '' + '<br/>' 
-        + 'Company: ' + items[i].company +'<br/>' 
-        + 'Field location: ' + items[i].location + '</div>\n' + '<br/>';
+        formatString = '<div' + '">'
+            + items[i].title.bold() + '<br/>'
+            + '<p> Job Description </p>'
+            + items[i].description + '<br/>'
+            + '' + '<br/>'
+            + 'Company: ' + items[i].company + '<br/>'
+            + 'Field location: ' + items[i].location + '</div>\n' + '<br/>';
         // employmentType: String,  // ('Full-time', 'Part-time', 'Contract', etc.)
         // experienceLevel: String, // ('Entry-level', 'Mid-level', 'Senior-level', etc.)
         // educationLevel: String
@@ -302,9 +302,35 @@ function displayDiv(items) {
         let div = document.createElement("div");
         div.setAttribute('id', 'posting');
         div.innerHTML = formatString;
-        
+
+        // add apply button
+        let button = document.createElement('button');
+        button.textContent = 'Apply';
+        button.id = items[i]['_id'];
+        button.onclick = () => {
+            applyJob(button);
+        };
+        div.appendChild(button);
+
+
         items_div.appendChild(div);
     }
+}
+
+function applyJob(job) {
+    userId = getCookie().u_Id;
+    fetch(URL + '/apply/job/' + userId + '/' + job.id + '/')
+        .then((response) => { return response.text() })
+        .then((text) => {
+             console.log(text) 
+             alert(text);
+            })
+        .catch((error) => {
+            console.log('THERE WAS A PROBLEM');
+            console.log(error);
+        });
+    
+
 }
 
 // turn js cookie to readable string.
@@ -320,8 +346,8 @@ const parseCookie = str =>
 
 
 // return username in the cookie.        
-function getUsername() {
-    return JSON.parse(parseCookie(document.cookie)['login'].slice(2,)).username;
+function getCookie() {
+    return JSON.parse(parseCookie(document.cookie)['login'].slice(2,));
 }
 
 function sendToProfile() {
@@ -329,3 +355,4 @@ function sendToProfile() {
     //send to user profile for now
     window.location.href = "/profile.html";
 }
+
