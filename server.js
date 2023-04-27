@@ -212,6 +212,32 @@ async function startServer() {
         });
     });
 
+    app.get('/search/user/job/:userId', (req, res) => {
+        User.findOne({ _id: req.params.userId }).then((result) => {
+            if (!result) {
+                res.end("not find");
+                return;
+            }
+            
+            let AppliedJobs = result.AppliedJobs;
+            filter = [];
+            for (obj in AppliedJobs) {
+                filter.push({ _id: AppliedJobs[obj] });
+            }
+            if (filter.length == 0) {
+                res.end("no Applier");
+                return;
+            }
+
+            Job.find({$or: filter}).then((results) => {
+                res.end(JSON.stringify(results));
+            })
+        }).catch((err) => {
+            console.log(err);
+            res.end("fail");
+        });
+    });
+
 
     app.post('/search/job/', async function (req, res) {
 
@@ -264,13 +290,13 @@ async function startServer() {
                 .then(() => {
                     // add jobId in the user.AppliedJobs.
                     let arr2 = [];
-                    User.findOne({_id: req.params.applierId}).then((result)=>{
+                    User.findOne({ _id: req.params.applierId }).then((result) => {
                         if (result.AppliedJobs != undefined) arr2 = result.AppliedJobs;
-                        for(job in arr2) {
-                            if(arr2[job] == req.params.jobId) return;
+                        for (job in arr2) {
+                            if (arr2[job] == req.params.jobId) return;
                         }
                         arr2.push(req.params.jobId);
-                        User.findOneAndUpdate({_id : req.params.applierId}, {AppliedJobs : arr2}).exec();
+                        User.findOneAndUpdate({ _id: req.params.applierId }, { AppliedJobs: arr2 }).exec();
                     });
 
                     console.log("apply job susses")
@@ -278,7 +304,7 @@ async function startServer() {
                 });
         });
 
-        
+
     });
 
 
