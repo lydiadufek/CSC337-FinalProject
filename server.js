@@ -225,27 +225,34 @@ async function startServer() {
         let arr = [];
         Job.findOne({ _id: req.params.jobId }).then((result) => {
             if (result.Applicants != undefined) arr = result.Applicants;
-            console.log(arr);
             for (applier in arr) {
-                console.log("arr[applier].UserID : " + arr[applier].UserID);
-                console.log("req.params.applierId : " + req.params.applierId);
-                console.log(arr[applier].UserID == req.params.applierId);
-
                 if (arr[applier].UserID == req.params.applierId) {
                     res.end("already apply");
                     return;
                 }
             }
-
             arr.push({
                 UserID: req.params.applierId,
             });
             Job.findOneAndUpdate({ _id: req.params.jobId }, { Applicants: arr })
                 .then(() => {
+                    // add jobId in the user.AppliedJobs.
+                    let arr2 = [];
+                    User.findOne({_id: req.params.applierId}).then((result)=>{
+                        if (result.AppliedJobs != undefined) arr2 = result.AppliedJobs;
+                        for(job in arr2) {
+                            if(arr2[job] == req.params.jobId) return;
+                        }
+                        arr2.push(req.params.jobId);
+                        User.findOneAndUpdate({_id : req.params.applierId}, {AppliedJobs : arr2}).exec();
+                    });
+
                     console.log("apply job susses")
                     res.end("susses")
                 });
         });
+
+        
     });
 
 
