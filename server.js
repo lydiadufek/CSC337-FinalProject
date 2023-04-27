@@ -221,6 +221,32 @@ async function startServer() {
         })
     });
 
+    app.get("/search/job/applier/:jobId", (req, res) => {
+        Job.findOne({ _id: req.params.jobId }).then((result) => {
+            if (!result) {
+                res.end("not find");
+                return;
+            }
+            let Applicants = result.Applicants;
+            filter = [];
+            for (obj in Applicants) {
+                filter.push({ _id: Applicants[obj].UserID });
+            }
+
+            if (filter.length == 0) {
+                res.end("no Applier");
+                return;
+            }
+
+            User.find({ $or: filter }).then((results) => {
+                res.end(JSON.stringify(results));
+            })
+        }).catch((err) => {
+            console.log(err);
+            res.end("fail");
+        });
+    })
+
     app.get("/apply/job/:applierId/:jobId", (req, res) => {
         let arr = [];
         Job.findOne({ _id: req.params.jobId }).then((result) => {
