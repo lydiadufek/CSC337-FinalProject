@@ -20,6 +20,8 @@ var Message = require('./module/MessageSchema');
 var CompanyProfile = require('./module/CompanyProfileSchema');
 
 let session = [];
+app.use('/home.html/', authenticate);
+
 
 // add given user to session.
 // user: data want to add to session.
@@ -158,7 +160,12 @@ async function startServer() {
 
             // console.log("result" + results); // single object
             bcrypt.compare(p, results.hash, function (err, result) {
-                // console.log(result);
+                s = addSession(results.username);
+                res.cookie("login", {
+                    'username': results.username,
+                    'u_Id': results._id,
+                    's_id': s
+                }, { maxAge: SESSION_LENGTH });
                 res.end(JSON.stringify({ 'status': result }));
             });
 
@@ -171,37 +178,37 @@ async function startServer() {
     app.post('/add/user/', function (req, res) {
         // res.write(JSON.stringify(User.find().exec()));
         // console.log(req.body.username);
-        let p1 = User.find({username: req.params.username}).exec();
-        p1.then( (results) => { 
+        let p1 = User.find({ username: req.params.username }).exec();
+        p1.then((results) => {
             if (results.length > 0) {
-            res.end('That username is already taken.');
+                res.end('That username is already taken.');
             } else {
-            bcrypt.hash(req.body.password, saltRounds, function (err, hs) {
-            var newUser = new User({
-                username: req.body.username,
-                hash: hs,
-                email: req.body.email
-            });
-            newUser.save();
-            res.end("saved user");
-            });
-            }  
-            p1.catch( (error) => {
+                bcrypt.hash(req.body.password, saltRounds, function (err, hs) {
+                    var newUser = new User({
+                        username: req.body.username,
+                        hash: hs,
+                        email: req.body.email
+                    });
+                    newUser.save();
+                    res.end("saved user");
+                });
+            }
+            p1.catch((error) => {
                 res.end('Failed to create new account.');
-            });   
+            });
         });
     });
 
     app.get('/search/users/:keyword', (req, res) => {
         let keyword = req.params.keyword;
-        let p1 = User.find({username: keyword}).exec();
-      
-        p1.then( (results) => { 
-          res.end( JSON.stringify(results) );
+        let p1 = User.find({ username: keyword }).exec();
+
+        p1.then((results) => {
+            res.end(JSON.stringify(results));
         });
-        p1.catch( (error) => {
-          console.log(error);
-          res.end('FAIL');
+        p1.catch((error) => {
+            console.log(error);
+            res.end('FAIL');
         });
     });
 
@@ -212,7 +219,22 @@ async function startServer() {
         Job.find(filter).exec().then((results) => {
             res.end(JSON.stringify(results));
         })
-    })
+    });
+
+    app.get("apply/job/:applierId/:jobId", (req, res) => {
+        let arr = [];
+        Job.findOne({ _id: req.params.jobId }).then((result) => {
+            if (result.Applicants != undefined) arr = result.Applicants;
+            arr.push({
+                UserID: req.params.applierId,
+            });
+            Job.findOneAndUpdate({ _id: req.params.jobId }, { Applicants: arr })
+                .then(console.log("apply job susses"));
+        })
+        res.end("susses");
+    });
+
+
 
     // .then((and) => {
     //     console.log(and);
