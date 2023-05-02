@@ -199,6 +199,24 @@ async function startServer() {
         });
     });
 
+    app.post('/user/profile/', (req, res) => {
+        update_item = {};
+        for (item in req.body) {
+            update_item[item] = item;
+        }
+        
+        User.findOneAndUpdate({ _id: req.body._id }, update_item)
+            .then(() => {
+                console.log('update profile susses');
+                res.end("susses");
+            })
+            .catch((err) => {
+                console.log(err)
+                res.end(err);
+            });
+
+    });
+
     app.get('/search/users/:keyword', (req, res) => {
         let keyword = req.params.keyword;
         let p1 = User.find({ username: keyword }).exec();
@@ -218,7 +236,7 @@ async function startServer() {
                 res.end("not find");
                 return;
             }
-            
+
             let AppliedJobs = result.AppliedJobs;
             filter = [];
             for (obj in AppliedJobs) {
@@ -229,7 +247,7 @@ async function startServer() {
                 return;
             }
 
-            Job.find({$or: filter}).then((results) => {
+            Job.find({ $or: filter }).then((results) => {
                 res.end(JSON.stringify(results));
             })
         }).catch((err) => {
