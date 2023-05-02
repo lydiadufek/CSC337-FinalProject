@@ -199,12 +199,26 @@ async function startServer() {
         });
     });
 
+    app.post('/add/job/', (req, res) => {
+        var newJob = new Job({
+            title : req.body.title,
+            description : req.body.description,
+            company : req.body.company,
+            location : req.body.location,
+            employmentType : req.body.employmentType,
+            experienceLevel : req.body.experienceLevel,
+            educationLevel : req.body.educationLevel,
+        });
+        newJob.save();
+        res.end("saved job");
+    });
+
     app.post('/user/profile/', (req, res) => {
         update_item = {};
         for (item in req.body) {
             update_item[item] = item;
         }
-        
+
         User.findOneAndUpdate({ _id: req.body._id }, update_item)
             .then(() => {
                 console.log('update profile susses');
